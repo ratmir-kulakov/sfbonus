@@ -20,4 +20,18 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+    
+    protected function beforeAction($action)
+    {
+        parent::beforeAction($action);
+        Yii::app()->clientScript->registerCoreScript('jquery');
+        
+        $commonScriptFile = Yii::getPathOfAlias('webroot.js.'.Yii::app()->controller->id).DIRECTORY_SEPARATOR.'common.js';
+        if (file_exists($commonScriptFile)) 
+        {
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->assetManager->publish($commonScriptFile), CClientScript::POS_END);
+        }
+        
+        return true;
+    }
 }

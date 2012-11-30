@@ -33,11 +33,17 @@ return array(
 	// application components
 	'components'=>array(
 		'user'=>array(
+            'class' => 'WebUser',
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+			'allowAutoLogin'=>false,
 		),
+        'authManager'=>array(
+            'class'=>'PhpAuthManager',
+            'defaultRoles' => array('guest'),
+        ),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+            'showScriptName'=>false,
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
@@ -71,6 +77,9 @@ return array(
 				*/
 			),
 		),
+        'file'=>array(
+            'class'=>'application.extensions.file.CFile',
+        ),
 	),
 
 	// application-level parameters that can be accessed
