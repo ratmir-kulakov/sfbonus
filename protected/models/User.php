@@ -15,7 +15,7 @@
  */
 class User extends CActiveRecord
 {
-    const ROLE_USER = 'user';
+//    const ROLE_USER = 'user';
     const ROLE_ADMIN = 'administrator';
     const ROLE_MODERATOR = 'moderator';
     
