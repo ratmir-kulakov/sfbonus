@@ -53,8 +53,8 @@ class LoginForm extends CFormModel
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			if(!$this->_identity->authenticate())
             {
-				$this->addError('password','Неправильные имя или пароль.');
-                echo '121231231233';
+//				$this->addError('password','Неправильные имя или пароль.');
+                Yii::app()->user->setFlash('error', '<strong>Ошибка!</strong> Неверно указан логин и/или пароль.');
             }
 		}
         else

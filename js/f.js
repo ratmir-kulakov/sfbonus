@@ -14,8 +14,19 @@ $(document).ready(function(){
     /*-----Login-----*/ 
     if( $('#login').length && $('#password').length )
     {
-        $('#login').focus();
-        $("#login, #password").keydown(function(){
+        var $login = $('#login'),
+            $password = $('#password');
+        
+        $login.focus();
+        if( $login.val() != '' )
+        {
+            $login.parent().find(".pseudo-label." + $login.attr("id")).hide();
+        }
+        if( $password.val() != '' )
+        {
+            $password.parent().find(".pseudo-label." + $password.attr("id")).hide();
+        }
+        $("#login, #password").on('keydown, mousedown', function(){
             $(this).parent().find(".pseudo-label." + $(this).attr("id")).hide();
         }).blur(function(){
             if($(this).val() == "")
