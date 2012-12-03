@@ -47,6 +47,10 @@ ul.inl-blck, ol.inl-blck  {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, .25);
 }
 
+.error {
+    color: #b94a48;
+}
+
 .modal form {
     margin: 0;
 }
@@ -391,9 +395,9 @@ span#top {
     -moz-border-radius: 7px;
 }
 
-.login-form .alert {
+.login-form .alert, .login-form .alerts-box {
     left: 140px;
-    top: -10px;
+    top: -20px;
 }
 
 .login-form .control-group {

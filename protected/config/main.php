@@ -13,7 +13,9 @@ return array(
 	'name'=>'My Web Application',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array(
+        'log',
+    ),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -28,32 +30,25 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
-        'admin',
+        'admin' => array(
+            'preload'=>array('bootstrap'),
+            'components'=>array(
+                'bootstrap'=>array(
+                    'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
+                ),
+            ),
+        ),
 	),
 
 	// application components
 	'components'=>array(
-        'html' => array(
-            'class' => 'Html',
-        ),
-		'user'=>array(
-            'class' => 'WebUser',
-			// enable cookie-based authentication
-			'allowAutoLogin'=>false,
-		),
         'authManager'=>array(
             'class'=>'PhpAuthManager',
             'defaultRoles' => array('guest'),
         ),
-		'urlManager'=>array(
-			'urlFormat'=>'path',
-            'showScriptName'=>false,
-			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-			),
-		),
+        'clientScript'=>array(
+            'coreScriptPosition' => CClientScript::POS_END,
+        ),
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=sfbonus_db',
 			'emulatePrepare' => true,
@@ -66,6 +61,12 @@ return array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
 		),
+        'file'=>array(
+            'class'=>'application.extensions.file.CFile',
+        ),
+        'html' => array(
+            'class' => 'Html',
+        ),
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
@@ -81,9 +82,20 @@ return array(
 				*/
 			),
 		),
-        'file'=>array(
-            'class'=>'application.extensions.file.CFile',
-        ),
+		'urlManager'=>array(
+			'urlFormat'=>'path',
+            'showScriptName'=>false,
+			'rules'=>array(
+				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+			),
+		),
+		'user'=>array(
+            'class' => 'WebUser',
+			// enable cookie-based authentication
+			'allowAutoLogin'=>false,
+		),
 	),
 
 	// application-level parameters that can be accessed

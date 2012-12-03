@@ -4,10 +4,9 @@
         <meta charset="utf-8">
         <meta name="description" content=""/>
         <meta name="description" content=""/>
-        <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.css" />
+        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jScrollPane/jScrollPane.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
-        <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body>
         <span id="top">&nbsp;</span>
