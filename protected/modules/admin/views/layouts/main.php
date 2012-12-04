@@ -20,6 +20,15 @@
                         'items'=>array(
                             array(
                                 'class'=>'bootstrap.widgets.TbMenu',
+                                'htmlOptions'=>array('class'=>'main'),
+                                'items'=>array(
+                                        array('label'=>'Баннеры', 'url'=>'#'),
+                                        array('label'=>'Настройки', 'url'=>'#'),
+                                        array('label'=>'Пользователи', 'url'=>array('/admin/user')),
+                                    ),
+                            ),
+                            array(
+                                'class'=>'bootstrap.widgets.TbMenu',
                                 'htmlOptions'=>array('class'=>'user pull-right'),
                                 'items'=>array(
                                     array('label'=>Yii::app()->user->name, 'url'=>'#', 'items'=>array(

@@ -26,7 +26,7 @@ $(document).ready(function(){
         {
             $password.parent().find(".pseudo-label." + $password.attr("id")).hide();
         }
-        $("#login, #password").on('keydown, mousedown', function(){
+        $("#login, #password").on('keydown mousedown', function(){
             $(this).parent().find(".pseudo-label." + $(this).attr("id")).hide();
         }).blur(function(){
             if($(this).val() == "")
