@@ -26,6 +26,8 @@ class DefaultController extends Controller
 			if($model->validate() && $model->login())
 				$this->redirect('/admin/');
 		}
+        
+        $this->layout = '/layouts/column1_main';
 		// display the login form
 		$this->render('login', array('model'=>$model));
 	}

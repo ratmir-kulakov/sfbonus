@@ -34,7 +34,7 @@
                                     array('label'=>Yii::app()->user->name, 'url'=>'#', 'items'=>array(
                                         array('label'=>'Настройки', 'url'=>'#'),
                                         '---',
-                                        array('label'=>'Выход', 'url'=>array('/admin/default/login')),
+                                        array('label'=>'Выход', 'url'=>array('/admin/default/logout')),
                                     )),
                                 ),
                             ),
@@ -43,9 +43,7 @@
                     ));
             ?>
         <?php endif; ?>
-        <div id="b" class="container-fluid">
-            <?php echo $content; ?>
-        </div>
+        <?php echo $content; ?>
         <footer id="f">
             
         </footer>

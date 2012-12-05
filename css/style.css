@@ -214,6 +214,9 @@ span#top {
 #page-info {
     padding: 0px 0 0 250px;
 }
+.one-col #page-info {
+    padding-left: 0px;   
+}
 
 #page-info .btn-group {
     padding-top: 10px;

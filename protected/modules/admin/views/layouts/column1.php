@@ -1,4 +1,6 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('/layouts/main'); ?>
-<?php echo $content; ?>
+    <div id="b" class="container-fluid one-col">
+        <?php echo $content; ?>
+    </div>
 <?php $this->endContent(); ?>
