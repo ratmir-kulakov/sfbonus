@@ -94,6 +94,7 @@ class User extends CActiveRecord
 			'username' => 'Логин',
 			'password' => 'Пароль',
 			'password_repeat' => 'Повторите пароль',
+			'last_login_time' => 'Дата последнего входа',
 			'status' => 'Статус',
 		);
 	}
@@ -110,14 +111,20 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('type',$this->type);
+        if( $this->type >= 0 )
+        {
+            $criteria->compare('type',$this->type);
+        }
 		$criteria->compare('last_name',$this->last_name,true);
 		$criteria->compare('first_name',$this->first_name,true);
 		$criteria->compare('middle_name',$this->middle_name,true);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('last_login_time',$this->last_login_time);
-		$criteria->compare('status',$this->status);
+        if( $this->status >= 0 )
+        {
+            $criteria->compare('status',$this->status);
+        }
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

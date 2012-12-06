@@ -65,12 +65,27 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
 		),
 	),
 	'columns' => array(
-		'type',
+		array(
+            'name'=>'type',
+            'type' => 'raw',
+            'value'=>'$data->getTypeName($data->type)',
+            'filter' => array(-1 => 'любой') + $model->getTypeOptions(),
+        ),
 		'username',
 		'last_name',
 		'first_name',
 		'middle_name',
-		'status',
+		array(
+            'name'=>'last_login_time',
+            'type' => 'raw',
+            'value'=>'date("d.m.Y H:s", $data->last_login_time)',
+        ),
+		array(
+            'name'=>'status',
+            'type' => 'raw',
+            'value'=>'$data->getStatusName($data->type)',
+            'filter' => array(-1 => 'любой') + $model->getStatusOptions(),
+        ),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
             'template'=>'{update} {delete}',
