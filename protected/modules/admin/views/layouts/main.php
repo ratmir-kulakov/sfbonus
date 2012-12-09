@@ -32,7 +32,7 @@
                                 'htmlOptions'=>array('class'=>'user pull-right'),
                                 'items'=>array(
                                     array('label'=>Yii::app()->user->name, 'url'=>'#', 'items'=>array(
-                                        array('label'=>'Настройки', 'url'=>'#'),
+                                        array('label'=>'Настройки', 'url'=>'/admin/user/update/id/'.Yii::app()->user->id),
                                         '---',
                                         array('label'=>'Выход', 'url'=>array('/admin/default/logout')),
                                     )),

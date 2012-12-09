@@ -85,7 +85,7 @@ class TbDataColumn extends CDataColumn
 			} else
 				$filterInputOptions=array();
 			if(is_array($this->filter)) {
-				$filterInputOptions['prompt'] = '';
+//				$filterInputOptions['prompt'] = '';
 				echo CHtml::activeDropDownList($this->grid->filter, $this->name, $this->filter, $filterInputOptions);
 			} else if($this->filter===null) {
 				echo CHtml::activeTextField($this->grid->filter, $this->name, $filterInputOptions);

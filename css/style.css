@@ -495,3 +495,7 @@ span#top {
     bottom: 5px;
     /*top: 75px;*/
 }
+
+.table th a.sort-link {
+    color: #333;
+}

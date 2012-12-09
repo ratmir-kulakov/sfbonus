@@ -27,6 +27,8 @@ class User extends CActiveRecord
     const STATUS_ACTIVE = 1;
     
     public $password_repeat;
+    public $date_first;
+    public $date_last;
     
 	/**
 	 * Returns the static model of the specified AR class.
@@ -64,7 +66,7 @@ class User extends CActiveRecord
 			array('password', 'compare'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('type, last_name, first_name, middle_name, username, last_login_time, status', 'safe', 'on'=>'search'),
+			array('type, last_name, first_name, middle_name, username, last_login_time, status, date_first, date_last', 'safe', 'on'=>'search'),
             array('password_repeat', 'safe'),
 		);
 	}
@@ -120,7 +122,22 @@ class User extends CActiveRecord
 		$criteria->compare('middle_name',$this->middle_name,true);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
-		$criteria->compare('last_login_time',$this->last_login_time);
+        if( (isset($this->date_first) && trim($this->date_first) != "") && (isset($this->date_last) && trim($this->date_last) != "") )
+        {
+            $criteria->condition = "last_login_time  >= '".CDateTimeParser::parse(trim($this->date_first), 'dd.MM.yyyy')."' and last_login_time <= '".CDateTimeParser::parse(trim($this->date_last), 'dd.MM.yyyy')."'";
+        }
+        elseif( (isset($this->date_first) && trim($this->date_first) != "") && (isset($this->date_last) && trim($this->date_last) == "") )
+        {
+            $criteria->condition = "last_login_time  >= '".CDateTimeParser::parse(trim($this->date_first), 'dd.MM.yyyy')."'";
+        }
+        elseif( (isset($this->date_first) && trim($this->date_first) == "") && (isset($this->date_last) && trim($this->date_last) != "") )
+        {
+            $criteria->condition = "last_login_time <= '".CDateTimeParser::parse(trim($this->date_last), 'dd.MM.yyyy')."'";
+        }
+        else
+        {
+            $criteria->compare('last_login_time', $this->last_login_time);
+        }
         if( $this->status >= 0 )
         {
             $criteria->compare('status',$this->status);

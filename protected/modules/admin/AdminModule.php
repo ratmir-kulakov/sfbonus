@@ -20,6 +20,7 @@ class AdminModule extends CWebModule
 		{
 			// this method is called before any module controller action is performed
 			// you may place customized code here
+            Yii::app()->widgetFactory->widgets['TbBreadcrumbs'] = array('homeLink'=>CHtml::link('Главная', array('/admin')));
             
             if ($action->id != 'login' && Yii::app()->user->isGuest) 
             {
