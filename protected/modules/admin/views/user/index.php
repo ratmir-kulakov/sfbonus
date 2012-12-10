@@ -2,25 +2,26 @@
 /* @var $this UserController */
 /* @var $model User */
 
-?>
-
-<div id="page-info" class="page-info">
-    <h1>Пользователи</h1>
-    <?php
-    $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-        'links'=>array('Пользователи'),
-    ));
-    ?>
-    <div id="controls-btn" class="controls-btn">
-        <strong class="title" title="Пользователи">Пользователи</strong>
-        <a class="back" href="/admin/"><span class="arrow">←</span> Вернуться</a>
-        <a class="btn btn-success" href="/admin/user/create"><i class="icon icon-plus-sign icon-white"></i>Добавить</a>
-        <a class="btn btn-danger" href="#"><i class="icon icon-trash icon-white"></i>Удалить</a>
-    </div>
-    <div class="clear-right"></div>
-</div>
-
-<?php 
+$this->pageName = 'Пользователи';
+$this->breadcrumbs = array(
+    'Пользователи',
+);
+$this->controlButtons = array(
+    $this->widget('bootstrap.widgets.TbButton',array(
+        'icon' => 'icon icon-plus-sign icon-white',
+        'label' => 'Добавить',
+        'size' => '',
+        'type' => 'success',
+        'url' => '/admin/user/create',
+    )),
+    $this->widget('bootstrap.widgets.TbButton',array(
+        'icon' => 'trash white',
+        'label' => 'Удалить',
+        'size' => '',
+        'type' => 'danger',
+        'url' => '#',
+    )),
+);
 // this is the date picker
 $dateisOn = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                         // 'model'=>$model,
@@ -101,13 +102,13 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
 		),
 	),
 	'columns' => array(
+		'username',
 		array(
             'name'=>'type',
             'type' => 'raw',
             'value'=>'$data->getTypeName($data->type)',
             'filter' => array(-1 => '---') + $model->getTypeOptions(),
         ),
-		'username',
 		'last_name',
 		'first_name',
 		'middle_name',

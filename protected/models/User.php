@@ -124,7 +124,13 @@ class User extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
         if( (isset($this->date_first) && trim($this->date_first) != "") && (isset($this->date_last) && trim($this->date_last) != "") )
         {
-            $criteria->condition = "last_login_time  >= '".CDateTimeParser::parse(trim($this->date_first), 'dd.MM.yyyy')."' and last_login_time <= '".CDateTimeParser::parse(trim($this->date_last), 'dd.MM.yyyy')."'";
+            $dateLast = CDateTimeParser::parse(trim($this->date_last), 'dd.MM.yyyy');
+            $dateLast = mktime(23, 59, 59, 
+                               date("m", $dateLast), 
+                               date("d", $dateLast), 
+                               date("Y", $dateLast)
+                        );
+            $criteria->condition = "last_login_time  >= '".CDateTimeParser::parse(trim($this->date_first), 'dd.MM.yyyy')."' and last_login_time <= '$dateLast'";
         }
         elseif( (isset($this->date_first) && trim($this->date_first) != "") && (isset($this->date_last) && trim($this->date_last) == "") )
         {
@@ -132,7 +138,13 @@ class User extends CActiveRecord
         }
         elseif( (isset($this->date_first) && trim($this->date_first) == "") && (isset($this->date_last) && trim($this->date_last) != "") )
         {
-            $criteria->condition = "last_login_time <= '".CDateTimeParser::parse(trim($this->date_last), 'dd.MM.yyyy')."'";
+            $dateLast = CDateTimeParser::parse(trim($this->date_last), 'dd.MM.yyyy');
+            $dateLast = mktime(23, 59, 59, 
+                               date("m", $dateLast), 
+                               date("d", $dateLast), 
+                               date("Y", $dateLast)
+                        );
+            $criteria->condition = "last_login_time <= '$dateLast'";
         }
         else
         {
