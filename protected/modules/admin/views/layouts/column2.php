@@ -10,9 +10,13 @@
             ?>
             <div id="controls-btn" class="controls-btn">
                 <strong class="title" title="<?php echo $this->pageName;?>"><?php echo $this->pageName;?></strong>
-                <a class="back" href="/admin/"><span class="arrow">←</span> Вернуться</a>
-                <a class="btn btn-success" href="/admin/user/create"><i class="icon icon-plus-sign icon-white"></i>Добавить</a>
-                <a class="btn btn-danger" href="#"><i class="icon icon-trash icon-white"></i>Удалить</a>
+                <a class="back" href="<?php echo $this->backLink;?>"><span class="arrow">←</span> Вернуться</a>
+                <?php 
+                if(count($this->controlButtons)):
+                    foreach($this->controlButtons as $button):
+                        $this->widget('bootstrap.widgets.TbButton',$button);
+                    endforeach;
+                endif;?>
             </div>
             <div class="clear-right"></div>
         </div>

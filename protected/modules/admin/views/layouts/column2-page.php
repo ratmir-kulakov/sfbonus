@@ -1,6 +1,6 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('/layouts/main'); ?>
-    <div id="b" class="container-fluid one-col">
+    <div id="b" class="container-fluid">
         <div id="page-info" class="page-info">
             <h1><?php echo $this->pageName;?></h1>
             <?php
@@ -20,6 +20,19 @@
             </div>
             <div class="clear-right"></div>
         </div>
-        <?php echo $content; ?>
+        <div class="left-sidebar">
+            <ul id="local-nav" class="nav nav-list left-sidenav">
+                <li><a href="#main"><i class="icon-chevron-right"></i> Основное</a></li>
+                <li><a href="#photo"><i class="icon-chevron-right"></i> Фотографии</a></li>
+                <li><a href="#files"><i class="icon-chevron-right"></i> Прикрепленные файлы</a></li>
+                <li><a href="#seo"><i class="icon-chevron-right"></i> SEO атрибутика</a></li>
+                <li><a href="#settings"><i class="icon-chevron-right"></i> Настройка</a></li>
+            </ul>
+        </div>
+        <div class="center-sidebar-wrapper">
+            <div class="center-sidebar">
+                <?php echo $content; ?>
+            </div>
+        </div>
     </div>
 <?php $this->endContent(); ?>

@@ -90,7 +90,8 @@ class UserController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->render('update',array(
+		$this->layout = '/layouts/column2-page';
+        $this->render('update',array(
 			'model'=>$model,
 		));
 	}

@@ -28,6 +28,10 @@ class Controller extends CController
      * @var array the control buttons of the current page 
      */
     public $controlButtons = array();
+    /**
+     * @var string the link to previous page 
+     */
+    public $backLink = '';
 
 
     protected function beforeAction($action)

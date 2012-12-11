@@ -3,24 +3,24 @@
 /* @var $model User */
 
 $this->pageName = 'Пользователи';
+$this->pageTitle = $this->pageName . ' :: ' . Yii::app()->name;
 $this->breadcrumbs = array(
     'Пользователи',
 );
+$this->backLink = '/admin/';
 $this->controlButtons = array(
-    $this->widget('bootstrap.widgets.TbButton',array(
+    array(
         'icon' => 'icon icon-plus-sign icon-white',
         'label' => 'Добавить',
-        'size' => '',
         'type' => 'success',
         'url' => '/admin/user/create',
-    )),
-    $this->widget('bootstrap.widgets.TbButton',array(
+    ),
+    array(
         'icon' => 'trash white',
         'label' => 'Удалить',
-        'size' => '',
         'type' => 'danger',
         'url' => '#',
-    )),
+    ),
 );
 // this is the date picker
 $dateisOn = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
