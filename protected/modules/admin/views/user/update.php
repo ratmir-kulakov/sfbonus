@@ -32,6 +32,29 @@ $this->controlButtons = array(
         'url' => '/admin/user/delete/id/'.$model->id,
     ),
 );
+
+$this->menu=array(
+	array(
+        'label'=>'Основное',
+        'icon'=>'chevron-right',
+        'url'=>array('','id'=>$model->id,'#'=>'main'), 
+    ),
+	array(
+        'label'=>'Фотографии', 
+        'icon'=>'chevron-right',
+        'url'=>array('','id'=>$model->id, '#'=>'photo'), 
+    ),
+	array(
+        'label'=>'SEO атрибутика', 
+        'icon'=>'chevron-right',
+        'url'=>array('','id'=>$model->id, '#'=>'seo'), 
+    ),
+	array(
+        'label'=>'Настройка', 
+        'icon'=>'chevron-right',
+        'url'=>array('','id'=>$model->id, '#'=>'settings'), 
+    ),
+);
 ?>
 
 

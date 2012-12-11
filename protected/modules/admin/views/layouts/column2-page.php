@@ -21,13 +21,14 @@
             <div class="clear-right"></div>
         </div>
         <div class="left-sidebar">
-            <ul id="local-nav" class="nav nav-list left-sidenav">
-                <li><a href="#main"><i class="icon-chevron-right"></i> Основное</a></li>
-                <li><a href="#photo"><i class="icon-chevron-right"></i> Фотографии</a></li>
-                <li><a href="#files"><i class="icon-chevron-right"></i> Прикрепленные файлы</a></li>
-                <li><a href="#seo"><i class="icon-chevron-right"></i> SEO атрибутика</a></li>
-                <li><a href="#settings"><i class="icon-chevron-right"></i> Настройка</a></li>
-            </ul>
+            <?php
+                $this->widget('bootstrap.widgets.TbMenu', array(
+                    'type'=>'list',
+                    'itemTemplate'=>'{menu}',
+                    'items'=>$this->menu,
+                    'htmlOptions'=>array('class'=>'left-sidenav', 'id'=>'local-nav'),
+                ));
+            ?>
         </div>
         <div class="center-sidebar-wrapper">
             <div class="center-sidebar">
