@@ -35,27 +35,22 @@ $this->controlButtons = array(
 
 $this->menu=array(
 	array(
-        'label'=>'Основное',
+        'label'=>'Логин и пароль',
         'icon'=>'chevron-right',
         'url'=>array('','id'=>$model->id,'#'=>'main'), 
-    ),
-	array(
-        'label'=>'Фотографии', 
-        'icon'=>'chevron-right',
-        'url'=>array('','id'=>$model->id, '#'=>'photo'), 
-    ),
-	array(
-        'label'=>'SEO атрибутика', 
-        'icon'=>'chevron-right',
-        'url'=>array('','id'=>$model->id, '#'=>'seo'), 
     ),
 	array(
         'label'=>'Настройка', 
         'icon'=>'chevron-right',
         'url'=>array('','id'=>$model->id, '#'=>'settings'), 
     ),
+	array(
+        'label'=>'ФИО', 
+        'icon'=>'chevron-right',
+        'url'=>array('','id'=>$model->id, '#'=>'fio'), 
+    ),
 );
 ?>
 
 
-<?php //echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

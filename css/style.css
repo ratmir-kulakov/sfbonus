@@ -353,7 +353,7 @@ span#top {
     padding: 0 0 10px;
 }
 
-.controls span.help-block {
+.controls span.help-block, .controls p.help-block {
     clear: left;
     color: #999;
     display: block;
