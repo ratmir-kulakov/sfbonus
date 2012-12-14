@@ -15,6 +15,7 @@ $this->backLink = '/admin/user';
 
 $this->controlButtons = array(
     array(
+        'buttonType'=>'submit',
         'icon' => 'ok white',
         'label' => 'Сохранить',
         'type' => 'primary',
@@ -37,17 +38,17 @@ $this->menu=array(
 	array(
         'label'=>'Основное',
         'icon'=>'chevron-right',
-        'url'=>array('','id'=>$model->id,'#'=>'main'), 
+        'url'=>array('','#'=>'main'), 
     ),
 	array(
         'label'=>'Настройка', 
         'icon'=>'chevron-right',
-        'url'=>array('','id'=>$model->id, '#'=>'settings'), 
+        'url'=>array('','#'=>'settings'), 
     ),
 	array(
         'label'=>'ФИО', 
         'icon'=>'chevron-right',
-        'url'=>array('','id'=>$model->id, '#'=>'fio'), 
+        'url'=>array('','#'=>'fio'), 
     ),
 );
 ?>

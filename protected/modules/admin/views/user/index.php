@@ -107,7 +107,7 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
             'name'=>'type',
             'type' => 'raw',
             'value'=>'$data->getTypeName($data->type)',
-            'filter' => array(-1 => '---') + $model->getTypeOptions(),
+            'filter' => array(-1 => '---') + $model->typeOptions,
         ),
 		'last_name',
 		'first_name',
@@ -122,7 +122,7 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
             'name'=>'status',
             'type' => 'raw',
             'value'=>'$data->getStatusName($data->status)',
-            'filter' => array(-1 => '---') + $model->getStatusOptions(),
+            'filter' => array(-1 => '---') + $model->statusOptions,
         ),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',

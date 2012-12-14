@@ -66,7 +66,7 @@ class UserController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->layout = '/layouts/column2-page';
+		$this->layout = '/layouts/column2-page-form';
 		$this->render('create',array(
 			'model'=>$model,
 		));

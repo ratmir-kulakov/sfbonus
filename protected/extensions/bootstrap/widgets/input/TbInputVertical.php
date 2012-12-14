@@ -81,8 +81,10 @@ class TbInputVertical extends TbInput
 	protected function dropDownList()
 	{
 		echo $this->getLabel();
+		echo '<div class="controls controls-row">';
 		echo $this->form->dropDownList($this->model, $this->attribute, $this->data, $this->htmlOptions);
 		echo $this->getError() . $this->getHint();
+		echo '</div>';
 	}
 
 	/**
