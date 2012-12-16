@@ -33,7 +33,6 @@ class Controller extends CController
      */
     public $backLink = '';
 
-
     protected function beforeAction($action)
     {
         parent::beforeAction($action);

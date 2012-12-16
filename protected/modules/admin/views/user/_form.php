@@ -9,12 +9,14 @@
     <div class="control-group">
         <?php echo $form->textFieldRow($model, 'username', array('class'=>'span3','hint'=>'Примечание: Логин должен быть уникальным и может состоять только из букв латинского алфавита, цифр, знаков "_" и "&ndash;".')); ?>
     </div>
+    <?php if($model->isNewRecord):?>
     <div class="control-group">
-        <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span3','hint'=>'Примечание: ')); ?>
+        <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span3','hint'=>'Примечание: Пароль должен быть не менее 5 символов.')); ?>
     </div>
     <div class="control-group">
-        <?php echo $form->passwordFieldRow($model, 'password_repeat', array('class'=>'span3','hint'=>'Примечание: ')); ?>
+        <?php echo $form->passwordFieldRow($model, 'password_repeat', array('class'=>'span3')); ?>
     </div>
+    <?php endif;?>
 </section>	
 <section class="page-part" id="settings">
     <h1>Настройка</h1>

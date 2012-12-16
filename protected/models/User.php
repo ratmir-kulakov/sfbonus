@@ -61,13 +61,14 @@ class User extends CActiveRecord
 			array('last_name, first_name, middle_name', 'length', 'max'=>40),
 			array('username', 'length', 'max'=>25),
 			array('username', 'unique'),
-			array('username', 'match', 'pattern'=>'/^[A-Za-z]+[A-Za-z0-9_]*$/'),
-			array('password', 'length', 'max'=>32),
+			array('username', 'match', 'pattern'=>'/^[A-Za-z]+[A-Za-z0-9_\-]*$/'),
+			array('last_name,first_name,middle_name', 'match', 'pattern'=>'/^[A-Za-zА-Яа-я]+[A-Za-zА-Яа-я_\-]*$/'),
+			array('password', 'length', 'min'=>5, 'max'=>32),
 			array('password', 'compare'),
+            array('password_repeat', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('type, last_name, first_name, middle_name, username, last_login_time, status, date_first, date_last', 'safe', 'on'=>'search'),
-            array('password_repeat', 'safe'),
 		);
 	}
 
