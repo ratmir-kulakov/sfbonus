@@ -29,6 +29,11 @@
     <div class="control-group">
         <?php echo $form->passwordFieldRow($model, 'password_repeat', array('class'=>'span3')); ?>
     </div>
+    <?php else:?>
+    <div class="control-group">
+        <div class="change-pass-label">Пароль</div>
+        <div class="change-pass-link"><a href="#">Сменить пароль</a></div>
+    </div>
     <?php endif;?>
 </section>	
 <section class="page-part" id="settings">

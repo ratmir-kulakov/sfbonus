@@ -499,3 +499,14 @@ span#top {
 .table th a.sort-link {
     color: #333;
 }
+
+/*-----User-----*/
+.change-pass-link {
+    padding: 0 0 10px;
+}
+.change-pass-link a {
+    text-decoration: underline;
+}
+.change-pass-link a:hover {
+    text-decoration: none;
+}

@@ -15,6 +15,12 @@ $this->backLink = '/admin/user';
 
 $this->controlButtons = array(
     array(
+        'icon' => 'icon icon-plus-sign icon-white',
+        'label' => 'Добавить',
+        'type' => 'success',
+        'url' => '/admin/user/create',
+    ),
+    array(
         'buttonType'=>'submit',
         'icon' => 'ok white',
         'label' => 'Сохранить',
