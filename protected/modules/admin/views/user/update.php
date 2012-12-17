@@ -15,15 +15,21 @@ $this->backLink = '/admin/user';
 
 $this->controlButtons = array(
     array(
+        'buttonType'=>'submit',
         'icon' => 'ok white',
         'label' => 'Сохранить',
         'type' => 'primary',
-        'url' => '/admin/user',
+        'htmlOptions'=>array(
+            'name'=>'saveUser',
+        ),
     ),
     array(
+        'buttonType'=>'submit',
         'icon' => 'check',
         'label' => 'Сохранить и выйти',
-        'url' => '/admin/user',
+        'htmlOptions'=>array(
+            'name'=>'saveUserExit',
+        ),
     ),
     array(
         'icon' => 'trash white',
@@ -54,7 +60,8 @@ $this->menu=array(
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'user-form',
     'enableAjaxValidation'=>false,
-    'htmlOptions'=>array('class'=>'user-form')
+    'htmlOptions'=>array('class'=>'user-form'),
+    'inlineErrors'=>true,
 )); 
 ?>
 

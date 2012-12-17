@@ -4,6 +4,19 @@
 /* @var $form CActiveForm */
 ?>
 
+<?php $this->widget('bootstrap.widgets.TbAlert', array(
+    'block'=>false, // display a larger alert block?
+    'fade'=>true, // use transitions?
+    'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
+    'alerts'=>array( // configurations per alert type
+        'success'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), // success, info, warning, error or danger
+        'error'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), // success, info, warning, error or danger
+    ),
+    'htmlOptions'=>array(
+        'class'=>'alerts-box',
+    ),
+)); ?>
+
 <section class="page-part" id="main">
     <h1>Основное</h1>
     <div class="control-group">
@@ -11,7 +24,7 @@
     </div>
     <?php if($model->isNewRecord):?>
     <div class="control-group">
-        <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span3','hint'=>'Примечание: Пароль должен быть не менее 5 символов.')); ?>
+        <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span3', 'value' => '','hint'=>'Примечание: Пароль должен быть не менее 5 символов.')); ?>
     </div>
     <div class="control-group">
         <?php echo $form->passwordFieldRow($model, 'password_repeat', array('class'=>'span3')); ?>

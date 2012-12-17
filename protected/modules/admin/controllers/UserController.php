@@ -57,13 +57,27 @@ class UserController extends Controller
         $model = new User;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+            {
+                Yii::app()->user->setFlash('success', '<strong>Сохранено!</strong> Пользователь успешно добавлен.');
+                if(isset($_POST['saveUser']))
+                {
+                    $this->redirect(array('update','id'=>$model->id));
+                }
+                else
+                {
+                    $this->redirect(array('index'));
+                }
+            }
+            else
+            {
+                Yii::app()->user->setFlash('error', '<strong>Ошибка!</strong> Проверьте правильность заполнения полей.');
+            }
 		}
     
 		$this->layout = '/layouts/column2-page';
@@ -88,7 +102,21 @@ class UserController extends Controller
 		{
 			$model->attributes=$_POST['User'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+            {
+                Yii::app()->user->setFlash('success', '<strong>Сохранено!</strong> Изменения успешно сохранены.');
+                if(isset($_POST['saveUser']))
+                {
+                    $this->redirect(array('update','id'=>$model->id));
+                }
+                else
+                {
+                    $this->redirect(array('index'));
+                }
+            }
+            else
+            {
+                Yii::app()->user->setFlash('error', '<strong>Ошибка!</strong> Проверьте правильность заполнения полей.');
+            }
 		}
 
 		$this->layout = '/layouts/column2-page';

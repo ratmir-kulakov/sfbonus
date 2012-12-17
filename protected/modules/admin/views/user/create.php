@@ -20,17 +20,18 @@ $this->controlButtons = array(
         'label' => 'Сохранить',
         'type' => 'primary',
         'url' => '/admin/user',
+        'htmlOptions'=>array(
+            'name'=>'saveUser',
+        ),
     ),
     array(
+        'buttonType'=>'submit',
         'icon' => 'check',
         'label' => 'Сохранить и выйти',
         'url' => '/admin/user',
-    ),
-    array(
-        'icon' => 'trash white',
-        'label' => 'Удалить',
-        'type' => 'danger',
-        'url' => '/admin/user/delete/id/'.$model->id,
+        'htmlOptions'=>array(
+            'name'=>'saveUserExit',
+        ),
     ),
 );
 
@@ -55,7 +56,8 @@ $this->menu=array(
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'user-form',
     'enableAjaxValidation'=>false,
-    'htmlOptions'=>array('class'=>'user-form')
+    'htmlOptions'=>array('class'=>'user-form'),
+    'inlineErrors'=>true,
 )); 
 ?>
 
