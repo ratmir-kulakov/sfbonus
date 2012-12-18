@@ -132,14 +132,22 @@ class UserController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-        $this->loadModel($id)->delete();
+        if($this->loadModel($id)->delete())
+        {
+            Yii::app()->user->setFlash('success', '<strong>Удалено!</strong> Пользователь успешно удален.');
+        }
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
+    
+    public function actionDeletescope()
+    {
+        
+    }
 
-	/**
+    /**
 	 * Manages all models.
 	 */
 	public function actionIndex()

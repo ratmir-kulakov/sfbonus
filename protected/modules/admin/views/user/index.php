@@ -16,10 +16,17 @@ $this->controlButtons = array(
         'url' => '/admin/user/create',
     ),
     array(
+        'buttonType' => 'ajaxLink',
         'icon' => 'trash white',
         'label' => 'Удалить',
         'type' => 'danger',
-        'url' => '#',
+        'url' => 'deletescope',
+        'ajaxOptions' => array(
+           'type'=>'POST',
+           'data'=>'js:{theIds : $.fn.yiiGridView.getChecked("user-grid-view-id","example-check-boxes").toString()}'
+           // pay special attention to how the data is passed here
+        ),
+        'htmlOptions' => array(),
     ),
 );
 // this is the date picker
@@ -62,9 +69,21 @@ $dateisOn = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                 ),true);
 
 ?>
-
+<?php $this->widget('bootstrap.widgets.TbAlert', array(
+    'block'=>false, // display a larger alert block?
+    'fade'=>true, // use transitions?
+    'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
+    'alerts'=>array( // configurations per alert type
+        'success'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), // success, info, warning, error or danger
+        'error'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), // success, info, warning, error or danger
+    ),
+    'htmlOptions'=>array(
+        'class'=>'alerts-box',
+    ),
+)); ?>
 <?php
 $this->widget('bootstrap.widgets.TbExtendedGridView', array(
+    'id'=>'user-grid-view-id',
 	'filter'=>$model,
 	'fixedHeader' => true,
 	'headerOffset' => 87, // the height of the main navigation at bootstrap
@@ -83,25 +102,17 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
             }
         )); 
     }", 
-	'bulkActions' => array(
-        'actionButtons' => array(
-            /*
-            array(
-                'buttonType' => 'button',
-                'type' => 'primary',
-                'size' => 'small',
-                'label' => 'Testing Primary Bulk Actions',
-                'click' => 'js:function(values){console.log(values);}'
-            )
-            */
-        ),
-		// if grid doesn't have a checkbox column type, it will attach
-		// one and this configuration will be part of it
-		'checkBoxColumnConfig' => array(
-		    'name' => 'id'
-		),
-	),
 	'columns' => array(
+        array(
+            'class'=>'CCheckBoxColumn', 
+            'selectableRows' => 2,
+            'id'=>'user-check-box',
+            'checkBoxHtmlOptions' => array(
+                'name' => 'userids[]',
+            ),
+            'value'=>'$data->id',
+//            'checked'=>'(in_array($data->id, $current_reviewers) ? 1 : ""',           
+        ),
 		'username',
 		array(
             'name'=>'type',

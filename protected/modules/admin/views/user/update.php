@@ -38,10 +38,14 @@ $this->controlButtons = array(
         ),
     ),
     array(
+        'buttonType'=>'submit',
         'icon' => 'trash white',
         'label' => 'Удалить',
         'type' => 'danger',
-        'url' => '/admin/user/delete/id/'.$model->id,
+        'htmlOptions'=>array(
+            'submit' => array('user/delete', 'id'=>$model->id),
+            'confirm' => 'Вы уверены, что хотите удалить данного пользователя?'
+        ),
     ),
 );
 
