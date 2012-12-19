@@ -28,7 +28,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','admin','delete', 'create','update'),
+				'actions'=>array('index','view','admin','delete', 'deletescope', 'create','update'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -144,7 +144,16 @@ class UserController extends Controller
     
     public function actionDeletescope()
     {
-        
+        if(isset($_POST['theIds']))
+        {
+              $ids=explode(',', $_POST['Ids']);
+              $criteria = new CDbCriteria;
+              $criteria->addInCondition('id', $ids);
+              User::model()->updateAll(array('status'=>User::STATUS_INACTIVE), $criteria);
+        }
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
     }
 
     /**

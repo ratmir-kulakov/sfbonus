@@ -20,11 +20,13 @@ $this->controlButtons = array(
         'icon' => 'trash white',
         'label' => 'Удалить',
         'type' => 'danger',
-        'url' => 'deletescope',
+        'url' => 'user/deletescope',
         'ajaxOptions' => array(
            'type'=>'POST',
-           'data'=>'js:{theIds : $.fn.yiiGridView.getChecked("user-grid-view-id","example-check-boxes").toString()}'
-           // pay special attention to how the data is passed here
+           'beforeSend'=>'function(){
+               alert($.fn.yiiGridView.getChecked("user-grid-view-id","user"));
+           }',
+           'data'=>'js:{Ids : $.fn.yiiGridView.getChecked("user-grid-view-id","user").toString()}'
         ),
         'htmlOptions' => array(),
     ),
@@ -106,7 +108,7 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
         array(
             'class'=>'CCheckBoxColumn', 
             'selectableRows' => 2,
-            'id'=>'user-check-box',
+            'id'=>'user',
             'checkBoxHtmlOptions' => array(
                 'name' => 'userids[]',
             ),
