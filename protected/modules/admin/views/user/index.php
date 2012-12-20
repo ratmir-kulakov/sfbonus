@@ -20,11 +20,20 @@ $this->controlButtons = array(
         'icon' => 'trash white',
         'label' => 'Удалить',
         'type' => 'danger',
-        'url' => 'deletescope/ajax/1',
+        'url' => array('deletescope', 'ajax'=>'1'),
         'ajaxOptions' => array(
             'type'=>'POST',
             'beforeSend'=>'function(){
-                
+                if($.fn.yiiGridView.getChecked("user-grid-view-id","userids").length == 0)
+                {
+                    alert("Ошибка! Необходимо выбрать хотя бы одного пользователя");
+                    return false;
+                }
+                if(! confirm("Вы уверены, что хотите удалить выбранных пользователей?"))
+                {
+                    return false;
+                }
+                $("#user-grid-view-id").addClass("grid-view-loading");
             }',
             'data'=>'js:{Ids : $.fn.yiiGridView.getChecked("user-grid-view-id","userids").toString()}', //ids of checked rows are converted to a string
             'success'=>'function(data){

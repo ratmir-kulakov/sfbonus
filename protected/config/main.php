@@ -87,6 +87,14 @@ return array(
 				*/
 			),
 		),
+        'request'=>array(
+            'class' => 'application.components.HttpRequest',
+            'enableCsrfValidation'=>true,
+            'enableCookieValidation'=>true,
+        ),
+        'session'=>array(
+            'timeout' => 1440,
+        ),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
             'showScriptName'=>false,
