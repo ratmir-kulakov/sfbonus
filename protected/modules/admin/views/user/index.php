@@ -20,13 +20,16 @@ $this->controlButtons = array(
         'icon' => 'trash white',
         'label' => 'Удалить',
         'type' => 'danger',
-        'url' => 'user/deletescope',
+        'url' => 'deletescope/ajax/1',
         'ajaxOptions' => array(
-           'type'=>'POST',
-           'beforeSend'=>'function(){
-               alert($.fn.yiiGridView.getChecked("user-grid-view-id","user"));
-           }',
-           'data'=>'js:{Ids : $.fn.yiiGridView.getChecked("user-grid-view-id","user").toString()}'
+            'type'=>'POST',
+            'beforeSend'=>'function(){
+                
+            }',
+            'data'=>'js:{Ids : $.fn.yiiGridView.getChecked("user-grid-view-id","userids").toString()}', //ids of checked rows are converted to a string
+            'success'=>'function(data){
+                $.fn.yiiGridView.update("user-grid-view-id", {url:""});
+            }',
         ),
         'htmlOptions' => array(),
     ),
@@ -77,7 +80,7 @@ $dateisOn = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
     'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
     'alerts'=>array( // configurations per alert type
         'success'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), // success, info, warning, error or danger
-        'error'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), // success, info, warning, error or danger
+        'error'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), 
     ),
     'htmlOptions'=>array(
         'class'=>'alerts-box',
@@ -92,7 +95,7 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
 	'type'=>'striped bordered condensed',
 	'dataProvider' => $model->search(),
 	'template' => "{items}",  
-    // чтобы после ajax обновления таблицы datePicker был доступен
+    //to update the table after ajax datePicker was available
     'afterAjaxUpdate'=>"function() { 
         jQuery('#User_date_first, #User_date_last').datepicker(jQuery.extend(
                 jQuery.datepicker.regional['ru'],{
@@ -108,12 +111,11 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
         array(
             'class'=>'CCheckBoxColumn', 
             'selectableRows' => 2,
-            'id'=>'user',
+            'id'=>'userids',
             'checkBoxHtmlOptions' => array(
                 'name' => 'userids[]',
             ),
             'value'=>'$data->id',
-//            'checked'=>'(in_array($data->id, $current_reviewers) ? 1 : ""',           
         ),
 		'username',
 		array(

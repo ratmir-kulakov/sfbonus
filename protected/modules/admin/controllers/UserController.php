@@ -144,7 +144,7 @@ class UserController extends Controller
     
     public function actionDeletescope()
     {
-        if(isset($_POST['theIds']))
+        if(isset($_POST['Ids']))
         {
               $ids=explode(',', $_POST['Ids']);
               $criteria = new CDbCriteria;
@@ -153,7 +153,9 @@ class UserController extends Controller
         }
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        {
+			$this->redirect( isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index') );
+        }
     }
 
     /**
