@@ -16,11 +16,20 @@ return array(
         'bizRule' => null,
         'data' => null
     ),
+    'updateOwnProfile' => array(
+        'type' => CAuthItem::TYPE_ROLE,
+        'description' => 'Редактирование своего профиля',
+        'bizRule' => 'return Yii::app()->user->id == $params;',
+        'data' => NULL,
+        'children' => array(
+                'user',
+        ),
+    ),
     'moderator' => array(
         'type' => CAuthItem::TYPE_ROLE,
         'description' => 'Модератор',
         'children' => array(
-            'user',          // позволим модератору всё, что позволено пользователю
+            'updateOwnProfile',
         ),
         'bizRule' => null,
         'data' => null

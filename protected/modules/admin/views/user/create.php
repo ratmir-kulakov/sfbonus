@@ -13,25 +13,21 @@ $this->breadcrumbs = array(
 
 $this->backLink = '/admin/user';
 
-$this->controlButtons = array(
-    array(
-        'buttonType'=>'submit',
-        'icon' => 'ok white',
-        'label' => 'Сохранить',
-        'type' => 'primary',
-        'url' => '/admin/user',
-        'htmlOptions'=>array(
-            'name'=>'saveUser',
-        ),
+$this->controlButtons[] = array(
+    'buttonType'=>'submit',
+    'icon' => 'ok white',
+    'label' => 'Сохранить',
+    'type' => 'primary',
+    'htmlOptions'=>array(
+        'name'=>'saveUser',
     ),
-    array(
-        'buttonType'=>'submit',
-        'icon' => 'check',
-        'label' => 'Сохранить и выйти',
-        'url' => '/admin/user',
-        'htmlOptions'=>array(
-            'name'=>'saveUserExit',
-        ),
+);
+$this->controlButtons[] = array(
+    'buttonType'=>'submit',
+    'icon' => 'check',
+    'label' => 'Сохранить и выйти',
+    'htmlOptions'=>array(
+        'name'=>'saveUserExit',
     ),
 );
 

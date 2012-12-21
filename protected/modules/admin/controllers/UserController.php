@@ -27,10 +27,15 @@ class UserController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','admin','delete', 'deletescope', 'create','update'),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('index','view','admin','delete', 'deletescope', 'create', 'update'),
 				'roles'=>array('administrator'),
 			),
+			array('allow',
+                'actions'=>array('update'),
+                'roles'=>array('moderator'),
+                'expression'=>'Yii::app()->controller->isProfileOwner()',
+            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -149,8 +154,8 @@ class UserController extends Controller
               $ids=explode(',', $_POST['Ids']);
               $criteria = new CDbCriteria;
               $criteria->addInCondition('id', $ids);
-              User::model()->updateAll(array('status'=>User::STATUS_INACTIVE), $criteria);
-//              User::model()->deleteAll($criteria);
+//              User::model()->updateAll(array('status'=>User::STATUS_INACTIVE), $criteria);
+              User::model()->deleteAll($criteria);
         }
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -186,8 +191,19 @@ class UserController extends Controller
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+    
+    public function isProfileOwner()
+    {
+        $model = $this->loadModel($_GET['id']);
+        if(! Yii::app()->user->checkAccess('updateOwnProfile', $model->id))
+        {
+            throw new CHttpException(403,Yii::t('yii','You are not authorized to perform this action.'));
+        }
+        
+        return true;
+    }
 
-	/**
+    /**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */

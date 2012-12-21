@@ -13,31 +13,37 @@ $this->breadcrumbs = array(
 
 $this->backLink = '/admin/user';
 
-$this->controlButtons = array(
-    array(
+if(Yii::app()->user->checkAccess('administrator'))
+{
+    $this->controlButtons[] = array(
         'icon' => 'icon icon-plus-sign icon-white',
         'label' => 'Добавить',
         'type' => 'success',
         'url' => '/admin/user/create',
+    );
+}
+
+$this->controlButtons[] = array(
+    'buttonType'=>'submit',
+    'icon' => 'ok white',
+    'label' => 'Сохранить',
+    'type' => 'primary',
+    'htmlOptions'=>array(
+        'name'=>'saveUser',
     ),
-    array(
-        'buttonType'=>'submit',
-        'icon' => 'ok white',
-        'label' => 'Сохранить',
-        'type' => 'primary',
-        'htmlOptions'=>array(
-            'name'=>'saveUser',
-        ),
+);
+$this->controlButtons[] = array(
+    'buttonType'=>'submit',
+    'icon' => 'check',
+    'label' => 'Сохранить и выйти',
+    'htmlOptions'=>array(
+        'name'=>'saveUserExit',
     ),
-    array(
-        'buttonType'=>'submit',
-        'icon' => 'check',
-        'label' => 'Сохранить и выйти',
-        'htmlOptions'=>array(
-            'name'=>'saveUserExit',
-        ),
-    ),
-    array(
+);
+
+if(Yii::app()->user->checkAccess('administrator'))
+{
+    $this->controlButtons[] = array(
         'buttonType'=>'submit',
         'icon' => 'trash white',
         'label' => 'Удалить',
@@ -46,8 +52,8 @@ $this->controlButtons = array(
             'submit' => array('user/delete', 'id'=>$model->id),
             'confirm' => 'Вы уверены, что хотите удалить данного пользователя?'
         ),
-    ),
-);
+    );
+}
 
 $this->menu=array(
 	array(

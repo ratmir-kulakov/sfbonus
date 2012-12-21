@@ -23,8 +23,8 @@
                                 'htmlOptions'=>array('class'=>'main'),
                                 'items'=>array(
                                         array('label'=>'Баннеры', 'url'=>'#'),
-                                        array('label'=>'Настройки', 'url'=>'#'),
-                                        array('label'=>'Пользователи', 'url'=>array('/admin/user')),
+                                        array('label'=>'Настройки', 'url'=>'#', 'visible'=>Yii::app()->user->checkAccess('administrator')),
+                                        array('label'=>'Пользователи', 'url'=>array('/admin/user'), 'visible'=>Yii::app()->user->checkAccess('administrator')),
                                     ),
                             ),
                             array(

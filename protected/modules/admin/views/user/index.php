@@ -35,12 +35,16 @@ $this->controlButtons = array(
                 }
                 $("#user-grid-view-id").addClass("grid-view-loading");
             }',
-            'data'=>'js:{Ids : $.fn.yiiGridView.getChecked("user-grid-view-id","userids").toString()}', //ids of checked rows are converted to a string
+            'data'=>'js:{Ids : $.fn.yiiGridView.getChecked("user-grid-view-id","userids").toString(), YII_CSRF_TOKEN : "'.Yii::app()->request->csrfToken.'"}', //ids of checked rows are converted to a string
             'success'=>'function(data){
                 $.fn.yiiGridView.update("user-grid-view-id", {url:""});
             }',
+            'error'=>'function(jqXHR, textStatus){
+                
+            }',
         ),
-        'htmlOptions' => array(),
+        'htmlOptions' => array(
+        ),
     ),
 );
 // this is the date picker
