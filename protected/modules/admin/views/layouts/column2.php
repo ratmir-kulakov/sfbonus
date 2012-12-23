@@ -10,7 +10,9 @@
             ?>
             <div id="controls-btn" class="controls-btn">
                 <strong class="title" title="<?php echo $this->pageName;?>"><?php echo $this->pageName;?></strong>
+                <?php if(!empty($this->backLink)):?>
                 <a class="back" href="<?php echo $this->backLink;?>"><span class="arrow">←</span> Вернуться</a>
+                <?php endif;?>
                 <?php 
                 if(count($this->controlButtons)):
                     foreach($this->controlButtons as $button):

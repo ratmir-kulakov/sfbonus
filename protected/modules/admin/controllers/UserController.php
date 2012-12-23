@@ -105,6 +105,12 @@ class UserController extends Controller
 
 		if(isset($_POST['User']))
 		{
+            if(! Yii::app()->user->checkAccess('administrator'))
+            {
+                $_POST['User']['username'] = $model->username;
+                $_POST['User']['type'] = $model->type;
+            }
+            
 			$model->attributes=$_POST['User'];
 			if($model->save())
             {
@@ -183,6 +189,8 @@ class UserController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer the ID of the model to be loaded
+     * 
+     * @return User
 	 */
 	public function loadModel($id)
 	{

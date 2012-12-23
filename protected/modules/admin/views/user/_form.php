@@ -20,7 +20,29 @@
 <section class="page-part" id="main">
     <h1>Основное</h1>
     <div class="control-group">
-        <?php echo $form->textFieldRow($model, 'username', array('class'=>'span3','hint'=>'Примечание: Логин должен быть уникальным и может состоять только из букв латинского алфавита, цифр, знаков "_" и "&ndash;".')); ?>
+        <?php 
+        if(Yii::app()->user->checkAccess('administrator'))
+        {
+            echo $form->textFieldRow($model, 
+                'username', 
+                array(
+                    'class'=>'span3',
+                    'hint'=>'Примечание: Логин должен быть уникальным и может состоять только из букв латинского алфавита, цифр, знаков "_" и "&ndash;".'
+                )
+            ); 
+        }
+        else
+        {
+            echo $form->textFieldRow($model, 
+                'username', 
+                array(
+                    'class'=>'span3',
+                    'readOnly'=>true,
+                    'hint'=>'Примечание: Логин должен быть уникальным и может состоять только из букв латинского алфавита, цифр, знаков "_" и "&ndash;".'
+                )
+            ); 
+        }
+        ?>
     </div>
     <?php if($model->isNewRecord):?>
     <div class="control-group">
@@ -32,10 +54,15 @@
     <?php else:?>
     <div class="control-group">
         <div class="change-pass-label">Пароль</div>
-        <div class="change-pass-link"><a href="#">Сменить пароль</a></div>
+        <div class="change-pass-link">
+            <?php echo CHtml::link('Сменить пароль', '#changePassModal', array(
+                'data-toggle'=>'modal',
+            ));?>
+        </div>
     </div>
     <?php endif;?>
 </section>	
+<?php if(Yii::app()->user->checkAccess('administrator')):?>
 <section class="page-part" id="settings">
     <h1>Настройка</h1>
     <div class="control-group">
@@ -45,6 +72,7 @@
         <?php echo $form->dropDownListRow($model,'status', $model->statusOptions, array('class'=>'span3','hint'=>'Примечание: ')); ?>
     </div>
 </section>	
+<?php endif;?>
 <section class="page-part" id="fio">
     <h1>ФИО</h1>
     <div class="control-group">

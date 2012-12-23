@@ -11,10 +11,10 @@ $this->breadcrumbs = array(
     'Редактирование',
 );
 
-$this->backLink = '/admin/user';
 
 if(Yii::app()->user->checkAccess('administrator'))
 {
+    $this->backLink = '/admin/user';
     $this->controlButtons[] = array(
         'icon' => 'icon icon-plus-sign icon-white',
         'label' => 'Добавить',
@@ -32,17 +32,17 @@ $this->controlButtons[] = array(
         'name'=>'saveUser',
     ),
 );
-$this->controlButtons[] = array(
-    'buttonType'=>'submit',
-    'icon' => 'check',
-    'label' => 'Сохранить и выйти',
-    'htmlOptions'=>array(
-        'name'=>'saveUserExit',
-    ),
-);
 
 if(Yii::app()->user->checkAccess('administrator'))
 {
+    $this->controlButtons[] = array(
+        'buttonType'=>'submit',
+        'icon' => 'check',
+        'label' => 'Сохранить и выйти',
+        'htmlOptions'=>array(
+            'name'=>'saveUserExit',
+        ),
+    );
     $this->controlButtons[] = array(
         'buttonType'=>'submit',
         'icon' => 'trash white',
@@ -65,6 +65,7 @@ $this->menu=array(
         'label'=>'Настройка', 
         'icon'=>'chevron-right',
         'url'=>array('','id'=>$model->id, '#'=>'settings'), 
+        'visible'=>Yii::app()->user->checkAccess('administrator'),
     ),
 	array(
         'label'=>'ФИО', 
@@ -90,7 +91,9 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     ?>
     <div id="controls-btn" class="controls-btn">
         <strong class="title" title="<?php echo $this->pageName;?>"><?php echo $this->pageName;?></strong>
+        <?php if(!empty($this->backLink)):?>
         <a class="back" href="<?php echo $this->backLink;?>"><span class="arrow">←</span> Вернуться</a>
+        <?php endif;?>
         <?php 
         if(count($this->controlButtons)):
             foreach($this->controlButtons as $button):
@@ -117,3 +120,32 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 </div>
 
 <?php $this->endWidget(); ?>
+
+<!-- Modal -->
+<div id="changePassModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel" aria-hidden="true">
+<?php    
+$modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id'=>'user-form',
+    'enableAjaxValidation'=>false,
+    'htmlOptions'=>array('class'=>'modal-user-form'),
+    'inlineErrors'=>true,
+));  
+?>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="changePassModalLabel">Изменение пароля</h3>
+    </div>
+    <div class="modal-body">
+        <div class="control-group">
+            <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span3', 'value' => '','hint'=>'Примечание: Пароль должен быть не менее 5 символов.')); ?>
+        </div>
+        <div class="control-group">
+            <?php echo $form->passwordFieldRow($model, 'password_repeat', array('class'=>'span3')); ?>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary">Сохранить</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+    </div>
+<?php $this->endWidget(); ?>
+</div>
