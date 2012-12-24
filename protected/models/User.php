@@ -30,6 +30,8 @@ class User extends CActiveRecord
     public $date_first;
     public $date_last;
     
+    private $_oldPassword;
+    
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -221,16 +223,6 @@ class User extends CActiveRecord
         return $options[$index];
     }
     
-    /**
-    * perform one-way encryption on the password before we store it in
-    the database
-    */
-    protected function afterValidate()
-    {
-        parent::afterValidate();
-        $this->password = $this->encrypt($this->password);
-    }
-    
     public function encrypt($value)
     {
         $dict = array(
@@ -242,5 +234,31 @@ class User extends CActiveRecord
         $pass =  md5( $value . md5($value + 'yii_sfbonus_bkzs') );
         $pass = strtr($pass, $dict);
         return $pass;
+    }
+    
+    /**
+    * perform one-way encryption on the password before we store it in
+    the database
+    */
+    protected function beforeSave()
+    {
+        if (parent::beforeSave())
+        {
+            if($this->password !== $this->_oldPassword)
+            {
+                $this->password = $this->encrypt($this->password);
+            }           
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    protected function afterFind() 
+    {
+        $this->_oldPassword = $this->password;
+        parent::afterFind();
     }
 }

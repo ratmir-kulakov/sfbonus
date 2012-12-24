@@ -125,10 +125,12 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div id="changePassModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel" aria-hidden="true">
 <?php    
 $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id'=>'user-form',
+    'action'=>array('changePassword', 'id'=>$model->id),
+    'id'=>'change-pass-user-form',
     'enableAjaxValidation'=>false,
     'htmlOptions'=>array('class'=>'modal-user-form'),
     'inlineErrors'=>true,
+    'focus'=>array($model,'password'),
 ));  
 ?>
     <div class="modal-header">
@@ -144,7 +146,15 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary">Сохранить</button>
+        <?php $this->widget('bootstrap.widgets.TbButton',array(
+            'buttonType'=>'submit',
+            'label' => 'Сохранить',
+            'type' => 'primary',
+            'htmlOptions'=>array(
+                'id'=>'changePassword',
+                'name'=>'changePassword',
+            ),
+        ));?>
         <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
     </div>
 <?php $this->endWidget(); ?>

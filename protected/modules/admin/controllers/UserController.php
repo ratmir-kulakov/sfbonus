@@ -135,10 +135,15 @@ class UserController extends Controller
 			'model'=>$model,
 		));
 	}
+    
+    public function actionChangePassword($id)
+    {
+        
+    }
 
-	/**
+    /**
 	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
 	public function actionDelete($id)
@@ -153,6 +158,10 @@ class UserController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
     
+    /**
+     * Deletes a set of items in accordance with the ids array
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+     */
     public function actionDeletescope()
     {
         if(isset($_POST['Ids']))
