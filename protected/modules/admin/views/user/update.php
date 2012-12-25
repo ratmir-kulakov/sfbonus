@@ -128,7 +128,11 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'action'=>array('changePassword', 'id'=>$model->id),
     'id'=>'change-pass-user-form',
     'enableAjaxValidation'=>false,
-    'htmlOptions'=>array('class'=>'modal-user-form'),
+    'htmlOptions'=>array(
+        'class'=>'modal-user-form',
+        'onsubmit'=>"return false;",  //Disable normal form submit 
+//        'onkeypress'=>" if(event.keyCode == 13){ send(); } " //Do ajax call when user presses enter key
+    ),
     'inlineErrors'=>true,
     'focus'=>array($model,'password'),
 ));  
@@ -147,9 +151,22 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     </div>
     <div class="modal-footer">
         <?php $this->widget('bootstrap.widgets.TbButton',array(
-            'buttonType'=>'submit',
+            'buttonType'=>'ajaxSubmit',
             'label' => 'Сохранить',
             'type' => 'primary',
+            'ajaxOptions' => array(
+                'type'=>'POST',
+                'beforeSend'=>'function(){
+                    
+                }',
+                'data'=>'js:{YII_CSRF_TOKEN : "'.Yii::app()->request->csrfToken.'"}', //ids of checked rows are converted to a string
+                'success'=>'function(data){
+                    
+                }',
+                'error'=>'function(jqXHR, textStatus){
+
+                }',
+            ),
             'htmlOptions'=>array(
                 'id'=>'changePassword',
                 'name'=>'changePassword',

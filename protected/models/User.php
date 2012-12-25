@@ -58,16 +58,16 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, username', 'required'),
-			array('password, password_repeat', 'required', 'on'=>'insert'),
+			array('type, username', 'required', 'except'=>'change-password'),
+			array('password, password_repeat', 'required', 'on'=>'insert,change-password'),
 			array('type, status, last_login_time', 'numerical', 'integerOnly'=>true),
 			array('last_name, first_name, middle_name', 'length', 'max'=>40),
 			array('username', 'length', 'max'=>25),
 			array('username', 'unique'),
 			array('username', 'match', 'pattern'=>'/^[A-Za-z]+[A-Za-z0-9_\-]*$/'),
 			array('last_name,first_name,middle_name', 'match', 'pattern'=>'/^[A-Za-zА-Яа-я]+[A-Za-zА-Яа-я_\-]*$/'),
-			array('password', 'length', 'min'=>5, 'max'=>32, 'on'=>'insert'),
-			array('password', 'compare', 'on'=>'insert'),
+			array('password', 'length', 'min'=>5, 'max'=>32, 'on'=>'insert,change-password'),
+			array('password', 'compare', 'on'=>'insert,change-password'),
             array('password_repeat', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

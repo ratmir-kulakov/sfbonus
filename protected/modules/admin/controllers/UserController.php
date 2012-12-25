@@ -139,10 +139,19 @@ class UserController extends Controller
     public function actionChangePassword($id)
     {
         $model = $this->loadModel($id);
+        $model->scenario = 'change-password';
 
 		if(isset($_POST['User']))
 		{
             $model->attributes = $_POST['User'];
+            if($model->save())
+            {
+                Yii::app()->user->setFlash('success', '<strong>Сохранено!</strong> Пароль успешно изменен.');
+            }
+            else
+            {
+                Yii::app()->user->setFlash('error', '<strong>Ошибка!</strong> Проверьте правильность заполнения полей.');
+            }
         }
         
         if(!isset($_GET['ajax']))
