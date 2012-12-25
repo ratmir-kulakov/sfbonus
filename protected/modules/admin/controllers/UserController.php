@@ -28,11 +28,11 @@ class UserController extends Controller
 	{
 		return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','admin','delete', 'deletescope', 'create', 'update'),
+				'actions'=>array('index','view','admin','delete', 'deletescope', 'create', 'update', 'changePassword'),
 				'roles'=>array('administrator'),
 			),
 			array('allow',
-                'actions'=>array('update'),
+                'actions'=>array('update', 'changePassword'),
                 'roles'=>array('moderator'),
                 'expression'=>'Yii::app()->controller->isProfileOwner()',
             ),
@@ -138,7 +138,17 @@ class UserController extends Controller
     
     public function actionChangePassword($id)
     {
+        $model = $this->loadModel($id);
+
+		if(isset($_POST['User']))
+		{
+            $model->attributes = $_POST['User'];
+        }
         
+        if(!isset($_GET['ajax']))
+        {
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+        }
     }
 
     /**
