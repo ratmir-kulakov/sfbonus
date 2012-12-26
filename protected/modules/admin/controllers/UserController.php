@@ -140,6 +140,8 @@ class UserController extends Controller
     {
         $model = $this->loadModel($id);
         $model->scenario = 'change-password';
+        
+        print_r($_POST);
 
 		if(isset($_POST['User']))
 		{

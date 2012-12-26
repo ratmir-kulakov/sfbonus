@@ -154,17 +154,18 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'buttonType'=>'ajaxSubmit',
             'label' => 'Сохранить',
             'type' => 'primary',
+            'url' => array('changePassword', 'id'=>$model->id, 'ajax'=>'1'),
             'ajaxOptions' => array(
                 'type'=>'POST',
                 'beforeSend'=>'function(){
-                    
+                    alert($("#change-pass-user-form").serialize());
                 }',
-                'data'=>'js:{YII_CSRF_TOKEN : "'.Yii::app()->request->csrfToken.'"}', //ids of checked rows are converted to a string
+                'data'=>'js:$("#change-pass-user-form").serialize()', //ids of checked rows are converted to a string
                 'success'=>'function(data){
-                    
+                    alert(data);
                 }',
                 'error'=>'function(jqXHR, textStatus){
-
+                    alert(textStatus);
                 }',
             ),
             'htmlOptions'=>array(
@@ -172,7 +173,16 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 'name'=>'changePassword',
             ),
         ));?>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+        <?php $this->widget('bootstrap.widgets.TbButton',array(
+            'buttonType'=>'button',
+            'label' => 'Отмена',
+            'type' => '',
+            'htmlOptions'=>array(
+                'data-dismiss'=>'modal',
+                'aria-hidden'=>'true',
+                'onclick'=>'$("#change-pass-user-form #User_password").val(""); $("#change-pass-user-form #User_password_repeat").val("");'
+            ),
+        ));?>
     </div>
 <?php $this->endWidget(); ?>
 </div>
