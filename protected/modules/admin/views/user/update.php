@@ -158,7 +158,10 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'ajaxOptions' => array(
                 'type'=>'POST',
                 'beforeSend'=>'function(){
-                    alert($("#change-pass-user-form").serialize());
+                    $("#changePassModalLabel").append(
+                        $("<span />").addClass("loader-icon")
+                    );
+//                    alert($("#change-pass-user-form").serialize());
                 }',
                 'data'=>'js:$("#change-pass-user-form").serialize()', //ids of checked rows are converted to a string
                 'success'=>'function(data){

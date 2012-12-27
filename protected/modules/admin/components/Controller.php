@@ -42,7 +42,7 @@ class Controller extends CController
 //        Yii::app()->clientScript->registerScriptFile(CHtml::asset($jsFilesDir.DIRECTORY_SEPARATOR.'bootstrap.js'), CClientScript::POS_END);
         Yii::app()->clientScript->registerScriptFile(CHtml::asset($jsFilesDir.DIRECTORY_SEPARATOR.'jScrollPane'.DIRECTORY_SEPARATOR.'jquery.mousewheel.js'), CClientScript::POS_END);
         Yii::app()->clientScript->registerScriptFile(CHtml::asset($jsFilesDir.DIRECTORY_SEPARATOR.'jScrollPane'.DIRECTORY_SEPARATOR.'jsPane.js'), CClientScript::POS_END);
-        Yii::app()->clientScript->registerScriptFile(CHtml::asset($jsFilesDir.DIRECTORY_SEPARATOR.'f.js'), CClientScript::POS_END);
+        Yii::app()->clientScript->registerScriptFile(CHtml::asset($jsFilesDir.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'f.js'), CClientScript::POS_END);
         
         $commonScriptFile = Yii::getPathOfAlias('webroot.js.'.Yii::app()->controller->id).DIRECTORY_SEPARATOR.'common.js';
         if (file_exists($commonScriptFile)) 
