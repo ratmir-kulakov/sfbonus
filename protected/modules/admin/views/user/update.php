@@ -161,14 +161,18 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                     $("#changePassModalLabel").append(
                         $("<span />").addClass("loader-icon")
                     );
-//                    alert($("#change-pass-user-form").serialize());
+                    $("#changePassModal button").attr("disabled", true);
                 }',
                 'data'=>'js:$("#change-pass-user-form").serialize()', //ids of checked rows are converted to a string
                 'success'=>'function(data){
-                    alert(data);
+                    $("#changePassModalLabel .loader-icon").remove();
+                    $("#changePassModal button").attr("disabled", false);
+                    $("#changePassModal .modal-body").prepend(data);
                 }',
                 'error'=>'function(jqXHR, textStatus){
-                    alert(textStatus);
+                    $("#changePassModalLabel .loader-icon").remove();
+                    $("#changePassModal button").attr("disabled", false);
+                    $("#changePassModal .modal-body").prepend(textStatus);
                 }',
             ),
             'htmlOptions'=>array(
@@ -183,9 +187,20 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'htmlOptions'=>array(
                 'data-dismiss'=>'modal',
                 'aria-hidden'=>'true',
-                'onclick'=>'$("#change-pass-user-form #User_password").val(""); $("#change-pass-user-form #User_password_repeat").val("");'
             ),
         ));?>
+        <?php
+        Yii::app()->clientScript->registerScript('loading', ' 
+            $("#changePassModal").on("hidden", function (){
+                $("#change-pass-user-form #User_password").val(""); 
+                $("#change-pass-user-form #User_password_repeat").val("");
+                if($(this).find(".alerts-box").length)
+                {
+                    $(this).find(".alerts-box").remove();
+                }
+            }) 
+        ', CClientScript::POS_READY); 
+        ?>
     </div>
 <?php $this->endWidget(); ?>
 </div>

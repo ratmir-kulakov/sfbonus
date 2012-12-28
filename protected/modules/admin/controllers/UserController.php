@@ -141,7 +141,7 @@ class UserController extends Controller
         $model = $this->loadModel($id);
         $model->scenario = 'change-password';
         
-        print_r($_POST);
+//        print_r($_POST);
 
 		if(isset($_POST['User']))
 		{
@@ -154,9 +154,14 @@ class UserController extends Controller
             {
                 Yii::app()->user->setFlash('error', '<strong>Ошибка!</strong> Проверьте правильность заполнения полей.');
             }
+                
         }
         
-        if(!isset($_GET['ajax']))
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            echo $this->renderPartial('_flash', NULL, TRUE);
+        }
+        else
         {
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }

@@ -365,7 +365,7 @@ span#top {
     height: 16px;
     cursor: pointer;
     display: inline-block;
-    background: url(../img/chbx-bg.png) 0px 0px no-repeat;
+    background: url(../../admin/img/chbx-bg.png) 0px 0px no-repeat;
     position: relative;
     top: 1px;
     z-index: 15;
@@ -376,6 +376,16 @@ span#top {
 .niceCheck input {
     display: none;
 }
+
+
+.modal h3 .loader-icon {
+    background: url(../../img/admin/loading.gif) center center no-repeat;
+    display: inline-block;
+    height: 16px;
+    margin: 0 0 0 10px;
+    width: 16px;
+}
+
 
 /*-----Login-----*/
 .signin-wrapper {
