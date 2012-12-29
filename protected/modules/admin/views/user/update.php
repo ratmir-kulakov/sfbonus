@@ -161,6 +161,10 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                     $("#changePassModalLabel").append(
                         $("<span />").addClass("loader-icon")
                     );
+                    if($("#changePassModal .alerts-box").length)
+                    {
+                        $("#changePassModal .alerts-box").remove();
+                    }
                     $("#changePassModal button").attr("disabled", true);
                 }',
                 'data'=>'js:$("#change-pass-user-form").serialize()', //ids of checked rows are converted to a string
@@ -198,7 +202,7 @@ $modalForm=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 {
                     $(this).find(".alerts-box").remove();
                 }
-            }) 
+            }); 
         ', CClientScript::POS_READY); 
         ?>
     </div>
