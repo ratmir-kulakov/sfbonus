@@ -177,8 +177,10 @@ class TbInputVertical extends TbInput
 	protected function textArea()
 	{
 		echo $this->getLabel();
+		echo '<div class="controls controls-row">';
 		echo $this->form->textArea($this->model, $this->attribute, $this->htmlOptions);
 		echo $this->getError() . $this->getHint();
+		echo '</div>';
 	}
 
 	/**

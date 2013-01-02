@@ -48,7 +48,7 @@ $this->controlButtons = array(
     ),
 );
 // this is the date picker
-$dateisOn = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+$dateisOn = 'с ' . $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                         // 'model'=>$model,
                                     'name' => 'User[date_first]',
                                     'language' => 'ru',
@@ -66,7 +66,7 @@ $dateisOn = $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                     ),
 // DONT FORGET TO ADD TRUE this will create the datepicker return as string
                                 ),true) . 
-            ' To ' . 
+            ' по ' . 
             $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                         // 'model'=>$model,
                                     'name' => 'User[date_last]',
@@ -145,6 +145,9 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
             'type' => 'raw',
             'value'=>'($data->last_login_time)? date("d.m.Y H:s", $data->last_login_time): "---"',
             'filter'=>$dateisOn, 
+            'filterHtmlOptions'=>array(
+                'style'=>'width: 220px',
+            ),
         ),
 		array(
             'name'=>'status',
