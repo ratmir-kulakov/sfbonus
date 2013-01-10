@@ -164,7 +164,7 @@ ul.nav.main li.sitemap > ul.dropdown-menu > li:first-child > ul > li > ul > li a
 }
 
 ul.nav.user {
-    background: url(../img/nav-sp.gif) 0px 10px no-repeat;
+    background: url(../../img/admin/nav-sp.gif) 0px 10px no-repeat;
     padding: 0 28px 0 13px;
 }
 ul.nav.user > li {
@@ -174,7 +174,7 @@ ul.nav.user > li ul li {
     text-transform: none;
 }
 ul.nav.user > li > a {
-    background: url(../img/icon-user.png) 3px 12px no-repeat;
+    background: url(../../img/admin/icon-user.png) 3px 12px no-repeat;
     padding: 10px 3px 10px 27px;
 }
 ul.nav.user > li > a:hover {

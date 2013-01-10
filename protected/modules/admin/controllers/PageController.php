@@ -112,9 +112,6 @@ class PageController extends Controller
     {
         return array(
             'fileUploaderConnector' => "ext.ezzeelfinder.ElFinderConnectorAction",
-            'fileManager'=>array(
-                'class'=>'application.extensions.elfinder.ElFinderAction',
-            ),
         );
     }
 
