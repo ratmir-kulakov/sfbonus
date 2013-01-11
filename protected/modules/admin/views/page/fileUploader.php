@@ -10,7 +10,7 @@ $this->widget("ext.ezzeelfinder.ElFinderWidget", array(
     'clientOptions' => array(
         'lang' => "ru",
         'resizable' => false,
-        'wysiwyg' => "ckeditor"
+        'wysiwyg' => "ckeditor",
     ),
     'connectorRoute' => "admin/page/fileUploaderConnector",
     'connectorOptions' => array(

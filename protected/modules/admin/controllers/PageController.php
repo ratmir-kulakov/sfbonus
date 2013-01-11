@@ -102,12 +102,6 @@ class PageController extends Controller
         $this->render('fileUploader');
     }
     
-    public function actionBrowse() 
-    {
-        $this->layout='//layouts/empty';
-        $this->render('browse');
-    }
-    
     public function actions()
     {
         return array(

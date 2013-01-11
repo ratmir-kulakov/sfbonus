@@ -100,11 +100,11 @@ $dateisOn = 'с ' . $this->widget('zii.widgets.jui.CJuiDatePicker', array(
     ),
 )); ?>
 <?php
-$this->widget('bootstrap.widgets.TbExtendedGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'id'=>'user-grid-view-id',
 	'filter'=>$model,
-	'fixedHeader' => true,
-	'headerOffset' => 87, // the height of the main navigation at bootstrap
+//	'fixedHeader' => true,
+//	'headerOffset' => 87, // the height of the main navigation at bootstrap
 	'type'=>'striped bordered condensed',
 	'dataProvider' => $model->search(),
 	'template' => "{items}",  
@@ -135,7 +135,7 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
             'name'=>'type',
             'type' => 'raw',
             'value'=>'$data->getTypeName($data->type)',
-            'filter' => array(-1 => '---') + $model->typeOptions,
+            'filter' => CHtml::activeDropDownList($model, 'type', $model->typeOptions, array('empty'=>'---')),
         ),
 		'last_name',
 		'first_name',
@@ -145,7 +145,7 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
             'type' => 'raw',
             'value'=>'($data->last_login_time)? date("d.m.Y H:s", $data->last_login_time): "---"',
             'filter'=>$dateisOn, 
-            'filterHtmlOptions'=>array(
+            'htmlOptions'=>array(
                 'style'=>'width: 220px',
             ),
         ),
@@ -153,7 +153,10 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
             'name'=>'status',
             'type' => 'raw',
             'value'=>'$data->getStatusName($data->status)',
-            'filter' => array(-1 => '---') + $model->statusOptions,
+            'filter' => CHtml::activeDropDownList($model, 'status', $model->statusOptions, array('empty'=>'---')),
+            'htmlOptions'=>array(
+                'style'=>'width: 140px',
+            ),
         ),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',

@@ -12,12 +12,17 @@ class AdminModule extends CWebModule
 			'admin.models.*',
 			'admin.components.*',
 		));
+        
 	}
 
 	public function beforeControllerAction($controller, $action)
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
+            $module = ( Yii::app()->controller->module ? Yii::app()->controller->module : Yii::app() );
+
+            $module->bootstrap->registerAllCss();
+            $module->bootstrap->register();
 			// this method is called before any module controller action is performed
 			// you may place customized code here
             Yii::app()->widgetFactory->widgets['TbBreadcrumbs'] = array('homeLink'=>CHtml::link('Главная', array('/admin')));

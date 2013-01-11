@@ -97,11 +97,9 @@ $this->widget('bootstrap.widgets.TbAlert', array(
     ),
 ));
 
-$this->widget('bootstrap.widgets.TbExtendedGridView', array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'id'=>'page-grid-view-id',
 	'filter'=>$model,
-	'fixedHeader' => true,
-	'headerOffset' => 87, // the height of the main navigation at bootstrap
 	'type'=>'striped bordered condensed',
 	'dataProvider' => $model->search(),
 	'template' => "{items}",  
@@ -133,18 +131,14 @@ $this->widget('bootstrap.widgets.TbExtendedGridView', array(
             'type' => 'raw',
             'value'=>'($data->last_update_date)? date("d.m.Y H:s", $data->last_update_date): "---"',
             'filter'=>$dateisOn, 
-            'filterHtmlOptions'=>array(
-                'style'=>'width: 220px',
-            ),
+            'htmlOptions'=>array('style'=>'width: 220px'),
         ),
 		array(
             'name'=>'status',
             'type' => 'raw',
             'value'=>'$data->getStatusName($data->status)',
-            'filter' => array(-1 => '---') + $model->statusOptions,
-            'filterHtmlOptions'=>array(
-                'style'=>'width: 120px',
-            ),
+            'filter' => CHtml::activeDropDownList($model, 'status', $model->statusOptions, array('empty'=>'---')),
+            'htmlOptions'=>array('style'=>'width: 140px'),
         ),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
