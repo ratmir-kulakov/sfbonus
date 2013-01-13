@@ -26,6 +26,7 @@
         <label for="Page_content">Текст</label>
         <div class="controls controls-row">
             <?php //you can use any desired dir to install this extension
+            //TODO Исправить все ошибкив в elFinder
             $this->widget('application.extensions.ckeditor.CKEditor', array(
                 'model'=>$model,
                 'attribute'=>'content',
@@ -46,10 +47,16 @@
     </div>
     <?php if(! $model->isNewRecord):?>
     <div class="control-group">
-        <?php echo $form->textFieldRow($model, 'last_update_date', array('class'=>'span3', 'readOnly'=>true,)); ?>
+        <?php 
+        $model->last_update_date = Yii::app()->dateFormatter->formatDateTime($model->last_update_date, 'medium', 'short');
+        echo $form->textFieldRow($model, 'last_update_date', array('class'=>'span3', 'readOnly'=>true, 'name'=>'date_update')); 
+        ?>
     </div>
     <div class="control-group">
-        <?php echo $form->textFieldRow($model, 'created_date', array('class'=>'span3', 'readOnly'=>true,)); ?>
+        <?php 
+        $model->created_date = Yii::app()->dateFormatter->formatDateTime($model->created_date, 'medium', 'short');
+        echo $form->textFieldRow($model, 'created_date', array('class'=>'span3', 'readOnly'=>true, 'name'=>'date_create')); 
+        ?>
     </div>
     <?php endif;?>
 </section>	

@@ -25,10 +25,10 @@ $this->controlButtons = array(
             'beforeSend'=>'function(){
                 if($.fn.yiiGridView.getChecked("page-grid-view-id","pageids").length == 0)
                 {
-                    alert("Ошибка! Необходимо выбрать хотя бы одного пользователя");
+                    alert("Ошибка! Необходимо выбрать хотя бы одну страницу");
                     return false;
                 }
-                if(! confirm("Вы уверены, что хотите удалить выбранных пользователей?"))
+                if(! confirm("Вы уверены, что хотите удалить выбранные страницы?"))
                 {
                     return false;
                 }
@@ -129,7 +129,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 		array(
             'name'=>'last_update_date',
             'type' => 'raw',
-            'value'=>'($data->last_update_date)? date("d.m.Y H:s", $data->last_update_date): "---"',
+            'value'=>'($data->last_update_date)? Yii::app()->dateFormatter->formatDateTime($data->last_update_date, "medium", "short"): "---"',
             'filter'=>$dateisOn, 
             'htmlOptions'=>array('style'=>'width: 220px'),
         ),

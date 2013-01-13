@@ -1,13 +1,13 @@
 <?php
-/* @var $this UserController */
-/* @var $model User */
+/* @var $this PageController */
+/* @var $model Page */
 
 $this->pageName = 'Редактирование';
 
-$this->pageTitle = $this->pageName . ' :: Пользователи :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: Страницы :: ' . Yii::app()->name;
 
 $this->breadcrumbs = array(
-    'Пользователи'=>'/admin/page',
+    'Страницы'=>'/admin/page',
     'Редактирование',
 );
 
@@ -29,7 +29,7 @@ $this->controlButtons[] = array(
     'label' => 'Сохранить',
     'type' => 'primary',
     'htmlOptions'=>array(
-        'name'=>'saveUser',
+        'name'=>'savePage',
     ),
 );
 
@@ -40,7 +40,7 @@ if(Yii::app()->user->checkAccess('administrator'))
         'icon' => 'check',
         'label' => 'Сохранить и выйти',
         'htmlOptions'=>array(
-            'name'=>'saveUserExit',
+            'name'=>'savePageExit',
         ),
     );
     $this->controlButtons[] = array(
@@ -50,7 +50,7 @@ if(Yii::app()->user->checkAccess('administrator'))
         'type' => 'danger',
         'htmlOptions'=>array(
             'submit' => array('page/delete', 'id'=>$model->id),
-            'confirm' => 'Вы уверены, что хотите удалить данного пользователя?'
+            'confirm' => 'Вы уверены, что хотите удалить данную страницу?'
         ),
     );
 }

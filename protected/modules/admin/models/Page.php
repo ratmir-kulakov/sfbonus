@@ -98,6 +98,12 @@ class Page extends CActiveRecord
             self::STATUS_ACTIVE => 'Опубликована',
         );
     }
+    
+    public function getStatusName($index)
+    {
+        $options = $this->getStatusOptions();
+        return $options[$index];
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -154,4 +160,16 @@ class Page extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    
+    public function behaviors() 
+    {  
+        return array(  
+            'AutoTimestampBehavior' => array(  
+                'class' => 'zii.behaviors.CTimestampBehavior',  
+                'createAttribute' => 'created_date',  
+                'updateAttribute' => 'last_update_date',  
+                'setUpdateOnCreate' => true,  
+            ),  
+        );  
+    }  
 }
