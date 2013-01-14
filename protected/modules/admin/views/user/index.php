@@ -143,7 +143,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 		array(
             'name'=>'last_login_time',
             'type' => 'raw',
-            'value'=>'($data->last_login_time)? date("d.m.Y H:s", $data->last_login_time): "---"',
+            'value'=>'($data->last_login_time)? Yii::app()->dateFormatter->formatDateTime($data->last_login_time, "medium", "short"): "---"',
             'filter'=>$dateisOn, 
             'htmlOptions'=>array(
                 'style'=>'width: 220px',

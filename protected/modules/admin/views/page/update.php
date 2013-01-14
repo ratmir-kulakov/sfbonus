@@ -59,17 +59,17 @@ $this->menu=array(
 	array(
         'label'=>'Основное',
         'icon'=>'chevron-right',
-        'url'=>array('','#'=>'main'), 
+        'url'=>array('', 'id'=>$model->id,'#'=>'main'), 
     ),
 	array(
         'label'=>'Настройка', 
         'icon'=>'chevron-right',
-        'url'=>array('','#'=>'settings'), 
+        'url'=>array('', 'id'=>$model->id,'#'=>'settings'), 
     ),
 	array(
         'label'=>'SEO', 
         'icon'=>'chevron-right',
-        'url'=>array('','#'=>'seo'), 
+        'url'=>array('', 'id'=>$model->id,'#'=>'seo'), 
     ),
 );
 
