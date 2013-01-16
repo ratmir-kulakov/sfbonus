@@ -79,6 +79,12 @@ ul.nav.main li {
 ul.nav.main li a {
     padding: 10px 0;
 }
+ul.nav.main li ul li {
+    padding: 0;    
+}
+ul.nav.main li ul.dropdown-menu li > a {
+    padding: 3px 20px;
+}
 ul.nav.main li.sitemap {
     background: url(../img/nav-sp.gif) 100% 10px no-repeat;
     padding: 0 15px 0 20px;

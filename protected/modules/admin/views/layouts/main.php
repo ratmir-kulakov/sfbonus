@@ -22,8 +22,12 @@
                                 'class'=>'bootstrap.widgets.TbMenu',
                                 'htmlOptions'=>array('class'=>'main'),
                                 'items'=>array(
-                                        array('label'=>'Страницы', 'url'=>array('/admin/page')),
-                                        array('label'=>'Баннеры', 'url'=>'#'),
+                                        array('label'=>'', 'url'=>'#'),
+                                        array('label'=>'Модули', 'url'=>'#', 'items'=>array(
+                                                array('label'=>'Страницы', 'url'=>array('/admin/page')),
+                                                array('label'=>'Баннеры', 'url'=>'#'),
+                                            ),
+                                        ),
                                         array('label'=>'Настройки', 'url'=>'#', 'visible'=>Yii::app()->user->checkAccess('administrator')),
                                         array('label'=>'Пользователи', 'url'=>array('/admin/user'), 'visible'=>Yii::app()->user->checkAccess('administrator')),
                                     ),
