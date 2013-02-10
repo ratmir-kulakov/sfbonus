@@ -25,6 +25,7 @@
                                         array('label'=>'', 'url'=>'#'),
                                         array('label'=>'Модули', 'url'=>'#', 'items'=>array(
                                                 array('label'=>'Страницы', 'url'=>array('/admin/page')),
+                                                array('label'=>'Партнеры', 'url'=>array('/admin/partner')),
                                                 array('label'=>'Баннеры', 'url'=>'#'),
                                             ),
                                         ),

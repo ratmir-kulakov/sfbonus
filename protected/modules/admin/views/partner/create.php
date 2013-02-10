@@ -1,17 +1,17 @@
 <?php
-/* @var $this PageController */
-/* @var $model Page */
+/* @var $this PartnerController */
+/* @var $model Partner */
 
-$this->pageName = 'Создание страницы';
+$this->pageName = 'Создание партнера';
 
-$this->pageTitle = $this->pageName . ' :: Страницы :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: Партнеры :: ' . Yii::app()->name;
 
 $this->breadcrumbs = array(
-    'Страницы'=>'/admin/page',
-    'Создание страницы',
+    'Партнеры'=>'/admin/partner',
+    'Создание партнера',
 );
 
-$this->backLink = '/admin/page';
+$this->backLink = '/admin/partner';
 
 $this->controlButtons[] = array(
     'buttonType'=>'submit',
@@ -19,7 +19,7 @@ $this->controlButtons[] = array(
     'label' => 'Сохранить',
     'type' => 'primary',
     'htmlOptions'=>array(
-        'name'=>'savePage',
+        'name'=>'savePartner',
     ),
 );
 $this->controlButtons[] = array(
@@ -27,7 +27,7 @@ $this->controlButtons[] = array(
     'icon' => 'check',
     'label' => 'Сохранить и выйти',
     'htmlOptions'=>array(
-        'name'=>'savePageExit',
+        'name'=>'savePartnerExit',
     ),
 );
 
@@ -50,9 +50,9 @@ $this->menu=array(
 );
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id'=>'page-form',
+    'id'=>'partner-form',
     'enableAjaxValidation'=>false,
-    'htmlOptions'=>array('class'=>'page-form'),
+    'htmlOptions'=>array('class'=>'partner-form'),
     'inlineErrors'=>true,
 )); 
 ?>

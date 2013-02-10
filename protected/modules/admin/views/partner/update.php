@@ -1,17 +1,27 @@
 <?php
-/* @var $this PageController */
-/* @var $model Page */
+/* @var $this PartnerController */
+/* @var $model Partner */
 
-$this->pageName = 'Создание страницы';
+$this->pageName = 'Редактирование';
 
-$this->pageTitle = $this->pageName . ' :: Страницы :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: Партнеры :: ' . Yii::app()->name;
 
 $this->breadcrumbs = array(
-    'Страницы'=>'/admin/page',
-    'Создание страницы',
+    'Партнеры'=>'/admin/partner',
+    'Редактирование',
 );
 
-$this->backLink = '/admin/page';
+
+if(Yii::app()->user->checkAccess('administrator'))
+{
+    $this->backLink = '/admin/partner';
+    $this->controlButtons[] = array(
+        'icon' => 'icon icon-plus-sign icon-white',
+        'label' => 'Добавить',
+        'type' => 'success',
+        'url' => '/admin/partner/create',
+    );
+}
 
 $this->controlButtons[] = array(
     'buttonType'=>'submit',
@@ -19,40 +29,54 @@ $this->controlButtons[] = array(
     'label' => 'Сохранить',
     'type' => 'primary',
     'htmlOptions'=>array(
-        'name'=>'savePage',
+        'name'=>'savePartner',
     ),
 );
-$this->controlButtons[] = array(
-    'buttonType'=>'submit',
-    'icon' => 'check',
-    'label' => 'Сохранить и выйти',
-    'htmlOptions'=>array(
-        'name'=>'savePageExit',
-    ),
-);
+
+if(Yii::app()->user->checkAccess('administrator'))
+{
+    $this->controlButtons[] = array(
+        'buttonType'=>'submit',
+        'icon' => 'check',
+        'label' => 'Сохранить и выйти',
+        'htmlOptions'=>array(
+            'name'=>'savePartnerExit',
+        ),
+    );
+    $this->controlButtons[] = array(
+        'buttonType'=>'submit',
+        'icon' => 'trash white',
+        'label' => 'Удалить',
+        'type' => 'danger',
+        'htmlOptions'=>array(
+            'submit' => array('partner/delete', 'id'=>$model->id),
+            'confirm' => 'Вы уверены, что хотите удалить данную страницу?'
+        ),
+    );
+}
 
 $this->menu=array(
 	array(
         'label'=>'Основное',
         'icon'=>'chevron-right',
-        'url'=>array('','#'=>'main'), 
+        'url'=>array('', 'id'=>$model->id,'#'=>'main'), 
     ),
 	array(
         'label'=>'Настройка', 
         'icon'=>'chevron-right',
-        'url'=>array('','#'=>'settings'), 
+        'url'=>array('', 'id'=>$model->id,'#'=>'settings'), 
     ),
 	array(
         'label'=>'SEO', 
         'icon'=>'chevron-right',
-        'url'=>array('','#'=>'seo'), 
+        'url'=>array('', 'id'=>$model->id,'#'=>'seo'), 
     ),
 );
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id'=>'page-form',
+    'id'=>'partner-form',
     'enableAjaxValidation'=>false,
-    'htmlOptions'=>array('class'=>'page-form'),
+    'htmlOptions'=>array('class'=>'partner-form'),
     'inlineErrors'=>true,
 )); 
 ?>
@@ -66,7 +90,9 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     ?>
     <div id="controls-btn" class="controls-btn">
         <strong class="title" title="<?php echo $this->pageName;?>"><?php echo $this->pageName;?></strong>
+        <?php if(!empty($this->backLink)):?>
         <a class="back" href="<?php echo $this->backLink;?>"><span class="arrow">←</span> Вернуться</a>
+        <?php endif;?>
         <?php 
         if(count($this->controlButtons)):
             foreach($this->controlButtons as $button):
@@ -91,5 +117,4 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php echo $this->renderPartial('_form', array('model'=>$model, 'form'=>$form)); ?>
     </div>
 </div>
-
 <?php $this->endWidget(); ?>

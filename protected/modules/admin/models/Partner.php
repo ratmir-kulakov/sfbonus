@@ -1,12 +1,13 @@
 <?php
 
 /**
- * This is the model class for table "{{page}}".
+ * This is the model class for table "{{partner}}".
  *
- * The followings are the available columns in table '{{page}}':
+ * The followings are the available columns in table '{{partner}}':
  * @property string $id
  * @property string $name
- * @property string $content
+ * @property string $conditions
+ * @property string $description
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_keywords
@@ -14,12 +15,13 @@
  * @property string $created_date
  * @property integer $status
  */
-class Page extends ActiveRecord
-{    
+class Partner extends ActiveRecord
+{
+    
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Page the static model class
+	 * @return Partner the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -31,7 +33,7 @@ class Page extends ActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{page}}';
+		return '{{partner}}';
 	}
 
 	/**
@@ -42,14 +44,14 @@ class Page extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('status', 'numerical', 'integerOnly'=>true),
 			array('name', 'required'),
+			array('status', 'numerical', 'integerOnly'=>true),
 			array('name, meta_title, meta_description, meta_keywords', 'length', 'max'=>255),
 			array('last_update_date, created_date', 'length', 'max'=>10),
-			array('content', 'safe'),
+            array('conditions, description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, content, meta_title, meta_description, meta_keywords, last_update_date, created_date, status, date_first, date_last', 'safe', 'on'=>'search'),
+			array('id, name, conditions, description, meta_title, meta_description, meta_keywords, last_update_date, created_date, status, date_first, date_last', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,8 +73,9 @@ class Page extends ActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Название страницы',
-			'content' => 'Содержание',
+			'name' => 'Название',
+			'conditions' => 'Условия',
+			'description' => 'Краткая информация',
 			'meta_title' => 'Meta Title',
 			'meta_description' => 'Meta Description',
 			'meta_keywords' => 'Meta Keywords',
@@ -81,6 +84,17 @@ class Page extends ActiveRecord
 			'status' => 'Статус',
 		);
 	}
+    
+    /**
+    * @return array user type names indexed by type IDs
+    */
+    public function getStatusOptions()
+    {
+        return array(
+            self::STATUS_INACTIVE  => 'Не опубликован',
+            self::STATUS_ACTIVE => 'Опубликован',
+        );
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -95,7 +109,8 @@ class Page extends ActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('content',$this->content,true);
+		$criteria->compare('conditions',$this->conditions,true);
+		$criteria->compare('description',$this->description,true);
 		$criteria->compare('meta_title',$this->meta_title,true);
 		$criteria->compare('meta_description',$this->meta_description,true);
 		$criteria->compare('meta_keywords',$this->meta_keywords,true);
