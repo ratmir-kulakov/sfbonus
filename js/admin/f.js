@@ -130,6 +130,7 @@ $(document).ready(function(){
         }
         
         offsetHeight = height;
+//        alert(offsetHeight);   
         
         if( $this.scrollTop() <= 5)
         {
@@ -169,9 +170,15 @@ $(document).ready(function(){
             id = $clickedLink.attr("href"), 
             $selectedBlock = null;
         
+        var expr = /^(.*#)/;
+        
+        id = '#' + id.replace(expr, '');
+        
+        
         $selectedBlock = $(id);
         if($selectedBlock && $selectedBlock.length)
         {
+//            alert($selectedBlock.offset().top);
             $window.scrollTop($selectedBlock.offset().top - offsetHeight);
         }
         

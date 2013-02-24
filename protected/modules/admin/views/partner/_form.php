@@ -3,7 +3,7 @@
 /* @var $model Partner */
 /* @var $form CActiveForm */
 ?>
-
+<!--<pre><?php print_r($model->offices); ?></pre>-->
 <?php $this->widget('bootstrap.widgets.TbAlert', array(
     'block'=>false, // display a larger alert block?
     'fade'=>true, // use transitions?
@@ -81,6 +81,22 @@
         </div>
     </div>
 </section>	
+<?php if(! $model->isNewRecord):?>
+<section class="page-part" id="address">
+    <h1>Адреса и время работы</h1>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+</section>
+<?php endif;?>
 <section class="page-part" id="settings">
     <h1>Настройка</h1>
     <div class="control-group">

@@ -62,6 +62,11 @@ $this->menu=array(
         'url'=>array('', 'id'=>$model->id,'#'=>'main'), 
     ),
 	array(
+        'label'=>'Адреса и время работы',
+        'icon'=>'chevron-right',
+        'url'=>array('', 'id'=>$model->id,'#'=>'address'), 
+    ),
+	array(
         'label'=>'Настройка', 
         'icon'=>'chevron-right',
         'url'=>array('', 'id'=>$model->id,'#'=>'settings'), 
@@ -106,9 +111,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php
         $this->widget('bootstrap.widgets.TbMenu', array(
             'type'=>'list',
+            'id'=>'local-nav',
             'itemTemplate'=>'{menu}',
             'items'=>$this->menu,
-            'htmlOptions'=>array('class'=>'left-sidenav', 'id'=>'local-nav'),
+            'htmlOptions'=>array('class'=>'left-sidenav'),
         ));
     ?>
 </div>

@@ -63,6 +63,7 @@ class Partner extends ActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'offices'=>array(self::HAS_MANY, 'PartnerOffices', 'partner_id'),
 		);
 	}
 

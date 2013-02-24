@@ -45,7 +45,7 @@
                                 ),
                             ),
                         ),
-                        'htmlOptions'=>array('class'=>'bt-shdw')
+                        'htmlOptions'=>array('id'=>'mainMenuBox','class'=>'bt-shdw')
                     ));
             ?>
         <?php endif; ?>
