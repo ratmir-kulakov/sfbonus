@@ -84,16 +84,44 @@
 <?php if(! $model->isNewRecord):?>
 <section class="page-part" id="address">
     <h1>Адреса и время работы</h1>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
+    <?php
+    $this->widget('bootstrap.widgets.TbGridView', array(
+        'id'=>'partner-adr-grid-view-id',
+        'type'=>'striped bordered condensed',
+        'dataProvider' => new CArrayDataProvider($model->offices, array('keyField'=>false,)),
+        'template' => "{items}",  
+        //to update the table after ajax datePicker was available
+        'afterAjaxUpdate'=>"function() {}", 
+        'columns' => array(
+            array(
+                'class'=>'CCheckBoxColumn', 
+                'selectableRows' => 2,
+                'id'=>'partnerids',
+                'checkBoxHtmlOptions' => array(
+                    'name' => 'partnerAdrIds[]',
+                ),
+                'value'=>'$data->id',
+            ),
+            array(
+                'name'=>'Адрес',
+                'type' => 'raw',
+                'value'=>'$data->address',
+                'filter' => false, //CHtml::activeTextField(PartnerOffices::model(), 'address'),
+            ),
+            array(
+                'name'=>'Статус',
+                'type' => 'raw',
+                'value'=>'$data->getStatusName($data->status)',
+                'filter' => false, //CHtml::activeDropDownList($model, 'status', $model->statusOptions, array('empty'=>'---')),
+                'htmlOptions'=>array('style'=>'width: 140px'),
+            ),
+            array(
+                'class'=>'bootstrap.widgets.TbButtonColumn',
+                'template'=>'{update} {delete}',
+            ),
+        ),
+    ));
+    ?>
     <p>&nbsp;</p>
 </section>
 <?php endif;?>
