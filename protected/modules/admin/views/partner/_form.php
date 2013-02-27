@@ -80,10 +80,47 @@
             <p class="help-block"><strong>Примечание:</strong> Несколько предложений о фирме-партнере.</p>
         </div>
     </div>
+    <p>&nbsp;</p>
 </section>	
 <?php if(! $model->isNewRecord):?>
 <section class="page-part" id="address">
-    <h1>Адреса и время работы</h1>
+    <h1 class="pull-left">Адреса и время работы</h1>
+    <a href="#addPhotoModal" role="button" class="btn btn-mini btn-success top-btn mg-left-mini" data-toggle="modal"><i class="icon-plus-sign icon-white"></i> Добавить</a>
+    <?php
+    $this->widget('bootstrap.widgets.TbButton',array(
+        'buttonType' => 'ajaxLink',
+        'icon' => 'trash white',
+        'label' => 'Удалить',
+        'type' => 'danger',
+        'url' => array('deletescope', 'ajax'=>'1'),
+        'ajaxOptions' => array(
+            'type'=>'POST',
+            'beforeSend'=>'function(){
+                if($.fn.yiiGridView.getChecked("partner-adr-grid-view-id","partnerAdrIds").length == 0)
+                {
+                    alert("Ошибка! Необходимо выбрать хотя бы один адрес");
+                    return false;
+                }
+                if(! confirm("Вы уверены, что хотите удалить информацию о выбранных адресах?"))
+                {
+                    return false;
+                }
+                $("#partner-adr-grid-view-id").addClass("grid-view-loading");
+            }',
+            'data'=>'js:{Ids : $.fn.yiiGridView.getChecked("partner-adr-grid-view-id","partnerAdrIds").toString(), YII_CSRF_TOKEN : "'.Yii::app()->request->csrfToken.'"}', //ids of checked rows are converted to a string
+            'success'=>'function(data){
+                $.fn.yiiGridView.update("partner-adr-grid-view-id", {url:""});
+            }',
+            'error'=>'function(jqXHR, textStatus){
+                
+            }',
+        ),
+        'htmlOptions' => array(
+            'id'=>'removeAllAdrBtn',
+            'class'=>'btn-mini top-btn mg-left-mini',
+        ),
+    ));
+    ?>
     <?php
     $this->widget('bootstrap.widgets.TbGridView', array(
         'id'=>'partner-adr-grid-view-id',
