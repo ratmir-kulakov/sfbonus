@@ -1,6 +1,6 @@
 <?php
 
-class PartnerController extends Controller
+class PartnerOfficesController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,7 +28,7 @@ class PartnerController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','admin','delete', 'deletescope', 'create', 'update'),
+				'actions'=>array('view','delete', 'deletescope', 'create', 'update'),
 				'roles'=>array('administrator'),
 			),
 			array('allow',
@@ -47,18 +47,18 @@ class PartnerController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Partner;
+		$model=new PartnerOffices;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Partner']))
+		if(isset($_POST['PartnerOffices']))
 		{
-			$model->attributes=$_POST['Partner'];
+			$model->attributes=$_POST['PartnerOffices'];
 			if($model->save())
             {
-                Yii::app()->user->setFlash('success', '<strong>Сохранено!</strong> Страница успешно добавлена.');
-                if(isset($_POST['savePartner']))
+                Yii::app()->user->setFlash('success', '<strong>Сохранено!</strong> Адрес успешно добавлен.');
+                if(isset($_POST['savePartnerOffices']))
                 {
                     $this->redirect(array('update','id'=>$model->id));
                 }
@@ -73,8 +73,7 @@ class PartnerController extends Controller
             }
 		}
 
-		$this->layout = '/layouts/column2-page';
-        $this->render('create',array(
+		$this->render('create',array(
 			'model'=>$model,
 		));
 	}
@@ -86,24 +85,24 @@ class PartnerController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=Partner::model()->with('offices')->findByPk($id);
+		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Partner']))
+		if(isset($_POST['PartnerOffices']))
 		{
-			$model->attributes=$_POST['Partner'];
+			$model->attributes=$_POST['PartnerOffices'];
 			if($model->save())
             {
-                Yii::app()->user->setFlash('success', '<strong>Сохранено!</strong> Изменения успешно сохранены.');
-                if(isset($_POST['savePartner']))
+                Yii::app()->user->setFlash('success', '<strong>Сохранено!</strong> Изменения в адресе успешно сохранены.');
+                if(isset($_POST['savePartnerOffices']))
                 {
                     $this->redirect(array('update','id'=>$model->id));
                 }
                 else
                 {
-                    $this->redirect(array('index'));
+                    $this->redirect(array('partner/update', 'id'=>$model->partner_id));
                 }
             }
             else
@@ -112,7 +111,7 @@ class PartnerController extends Controller
             }
 		}
 
-		$this->layout = '/layouts/column2-page';
+		$this->layout = '/layouts/column1-page';
         $this->render('update',array(
 			'model'=>$model,
 		));
@@ -127,7 +126,7 @@ class PartnerController extends Controller
 	{
 		if($this->loadModel($id)->delete())
         {
-            Yii::app()->user->setFlash('success', '<strong>Удалено!</strong> Информация о партнере успешно удален.');
+            Yii::app()->user->setFlash('success', '<strong>Удалено!</strong> Адрес успешно удален.');
         }
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -146,7 +145,7 @@ class PartnerController extends Controller
               $ids=explode(',', $_POST['Ids']);
               $criteria = new CDbCriteria;
               $criteria->addInCondition('id', $ids);
-              Partner::model()->deleteAll($criteria);
+              PartnerOffices::model()->deleteAll($criteria);
         }
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -158,35 +157,26 @@ class PartnerController extends Controller
 	/**
 	 * Lists all models.
 	 */
+    /*
 	public function actionIndex()
 	{
-        $model = Partner::model();
-		$model->setScenario('search'); 
-		$model->unsetAttributes(); 
-        
-		if(isset($_GET['Partner']))
-        {
-            echo '<pre>';
-            print_r($_GET['Partner']);
-            echo '</pre>';
-			$model->attributes = $_GET['Partner'];
-        }
-        
+		$dataProvider=new CActiveDataProvider('PartnerOffices');
 		$this->render('index',array(
-			'model' => $model,
+			'dataProvider'=>$dataProvider,
 		));
 	}
+    */
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Partner the loaded model
+	 * @return PartnerOffices the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Partner::model()->findByPk($id);
+		$model=PartnerOffices::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -194,11 +184,11 @@ class PartnerController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Partner $model the model to be validated
+	 * @param PartnerOffices $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='partner-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='partner-offices-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

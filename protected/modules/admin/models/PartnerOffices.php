@@ -21,6 +21,11 @@
  */
 class PartnerOffices extends ActiveRecord
 {
+    const YMAP_MAP = 'MAP';
+    const YMAP_SATELLITE = 'SATELLITE';
+    const YMAP_HYBRID = 'HYBRID';
+    const YMAP_PMAP = 'PMAP';
+    
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -51,11 +56,11 @@ class PartnerOffices extends ActiveRecord
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('cgeopoint_x, cgeopoint_y, geopoint_x, geopoint_y', 'numerical'),
 			array('partner_id', 'length', 'max'=>10),
-			array('address, phone, schedule, ymaps_id', 'length', 'max'=>255),
+			array('address, phone, schedule', 'length', 'max'=>255),
 			array('ymaps_type', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, partner_id, address, phone, schedule, ymaps_id, ymaps_type, cgeopoint_x, cgeopoint_y, geopoint_x, geopoint_y, status', 'safe', 'on'=>'search'),
+			array('id, partner_id, address, phone, schedule, ymaps_type, cgeopoint_x, cgeopoint_y, geopoint_x, geopoint_y, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,7 +87,6 @@ class PartnerOffices extends ActiveRecord
 			'address' => 'Адрес',
 			'phone' => 'Телефон',
 			'schedule' => 'График работы',
-			'ymaps_id' => 'Ymaps ID',
 			'ymaps_type' => 'Тип карты',
 			'cgeopoint_x' => 'Координата центра карты по X',
 			'cgeopoint_y' => 'Координата центра карты по Y',
@@ -108,7 +112,6 @@ class PartnerOffices extends ActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('schedule',$this->schedule,true);
-		$criteria->compare('ymaps_id',$this->ymaps_id,true);
 		$criteria->compare('ymaps_type',$this->ymaps_type,true);
 		$criteria->compare('cgeopoint_x',$this->cgeopoint_x);
 		$criteria->compare('cgeopoint_y',$this->cgeopoint_y);
@@ -123,4 +126,34 @@ class PartnerOffices extends ActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    
+    /**
+    * @return array user type names indexed by type IDs
+    */
+    public function getStatusOptions()
+    {
+        return array(
+            self::STATUS_INACTIVE  => 'Не опубликован',
+            self::STATUS_ACTIVE => 'Опубликован',
+        );
+    }
+    
+    /**
+    * @return array map type names indexed by type
+    */
+    public function getMapTypes()
+    {
+        return array(
+            self::YMAP_MAP  => 'Схема',
+            self::YMAP_SATELLITE => 'Спутник',
+            self::YMAP_HYBRID => 'Гибрид',
+            self::YMAP_PMAP => 'Народная',
+        );
+    }
+    
+    public function getMapName($index)
+    {
+        $mapTypes = $this->getMapTypes();
+        return $mapTypes[$index];
+    }
 }

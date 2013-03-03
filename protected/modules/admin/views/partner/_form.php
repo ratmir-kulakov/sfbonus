@@ -85,14 +85,26 @@
 <?php if(! $model->isNewRecord):?>
 <section class="page-part" id="address">
     <h1 class="pull-left">Адреса и время работы</h1>
-    <a href="#addPhotoModal" role="button" class="btn btn-mini btn-success top-btn mg-left-mini" data-toggle="modal"><i class="icon-plus-sign icon-white"></i> Добавить</a>
+    <?php
+    $this->widget('bootstrap.widgets.TbButton',array(
+        'buttonType' => 'Link',
+        'icon' => 'plus-sign white',
+        'label' => 'Добавить',
+        'type' => 'success',
+        'url' => array('partnerOffices/create', 'pid'=>'1'),
+        'htmlOptions' => array(
+            'id'=>'removeAllAdrBtn',
+            'class'=>'btn-mini top-btn mg-left-mini',
+        ),
+    ));
+    ?>
     <?php
     $this->widget('bootstrap.widgets.TbButton',array(
         'buttonType' => 'ajaxLink',
         'icon' => 'trash white',
         'label' => 'Удалить',
         'type' => 'danger',
-        'url' => array('deletescope', 'ajax'=>'1'),
+        'url' => array('partnerOffices/deletescope', 'ajax'=>'1'),
         'ajaxOptions' => array(
             'type'=>'POST',
             'beforeSend'=>'function(){
@@ -155,6 +167,14 @@
             array(
                 'class'=>'bootstrap.widgets.TbButtonColumn',
                 'template'=>'{update} {delete}',
+                'buttons'=>array(
+                    'update'=>array(
+                        'url'=>'array("partnerOffices/update", "id"=>$data->id)',
+                    ),
+                    'delete'=>array(
+                        'url'=>'array("partnerOffices/delete", "id"=>$data->id)',
+                    ),
+                ),
             ),
         ),
     ));
@@ -165,7 +185,7 @@
 <section class="page-part" id="settings">
     <h1>Настройка</h1>
     <div class="control-group">
-        <?php echo $form->dropDownListRow($model,'status', $model->statusOptions, array('class'=>'span3','hint'=>'<strong>Примечание:</strong> Только партнеры со статусом "Опубликован" отображаются на соответствующей странице сайте.')); ?>
+        <?php echo $form->dropDownListRow($model,'status', $model->statusOptions, array('class'=>'span3','hint'=>'<strong>Примечание:</strong> Только партнеры со статусом "Опубликован" отображаются на соответствующей странице сайта.')); ?>
     </div>
     <?php if(! $model->isNewRecord):?>
     <div class="control-group">
