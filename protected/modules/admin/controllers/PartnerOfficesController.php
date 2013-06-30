@@ -86,6 +86,7 @@ class PartnerOfficesController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+        $ymapModel = YandexMapModel::model();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -114,6 +115,7 @@ class PartnerOfficesController extends Controller
 		$this->layout = '/layouts/column1-page';
         $this->render('update',array(
 			'model'=>$model,
+            'ymapModel' => $ymapModel,
 		));
 	}
 
@@ -176,7 +178,7 @@ class PartnerOfficesController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=PartnerOffices::model()->findByPk($id);
+		$model=PartnerOffices::model()->with('ymap')->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

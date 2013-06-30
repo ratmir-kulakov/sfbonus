@@ -82,6 +82,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <div class="clear-right"></div>
 </div>
 <div class="center-sidebar">
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'form'=>$form)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'form'=>$form, 'ymapModel' => $ymapModel)); ?>
 </div>
 <?php $this->endWidget(); ?>

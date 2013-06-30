@@ -9,24 +9,16 @@
  * @property string $address
  * @property string $phone
  * @property string $schedule
- * @property string $ymaps_id
- * @property string $ymaps_type
- * @property double $cgeopoint_x
- * @property double $cgeopoint_y
- * @property double $geopoint_x
- * @property double $geopoint_y
+ * @property YandexMapModel $ymap
  *
  * The followings are the available model relations:
  * @property Partner $partner
  */
 class PartnerOffices extends ActiveRecord
 {
-    const YMAP_MAP = 'MAP';
-    const YMAP_SATELLITE = 'SATELLITE';
-    const YMAP_HYBRID = 'HYBRID';
-    const YMAP_PMAP = 'PMAP';
-    
-	/**
+    private static $ymap_mode = __CLASS__;
+
+    /**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return PartnerOffices the static model class
@@ -54,13 +46,11 @@ class PartnerOffices extends ActiveRecord
 		return array(
 			array('partner_id, address, schedule', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
-			array('cgeopoint_x, cgeopoint_y, geopoint_x, geopoint_y', 'numerical'),
 			array('partner_id', 'length', 'max'=>10),
 			array('address, phone, schedule', 'length', 'max'=>255),
-			array('ymaps_type', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, partner_id, address, phone, schedule, ymaps_type, cgeopoint_x, cgeopoint_y, geopoint_x, geopoint_y, status', 'safe', 'on'=>'search'),
+			array('id, partner_id, address, phone, schedule, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,6 +63,7 @@ class PartnerOffices extends ActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'partner' => array(self::BELONGS_TO, 'Partner', 'partner_id'),
+            'ymap' => array(self::HAS_ONE, 'YandexMapModel', array('owner_id'=>'id'),'on'=>'ymap.model=\''.self::$ymap_mode.'\''),
 		);
 	}
 
@@ -87,11 +78,6 @@ class PartnerOffices extends ActiveRecord
 			'address' => 'Адрес',
 			'phone' => 'Телефон',
 			'schedule' => 'График работы',
-			'ymaps_type' => 'Тип карты',
-			'cgeopoint_x' => 'Координата центра карты по X',
-			'cgeopoint_y' => 'Координата центра карты по Y',
-			'geopoint_x' => 'Координата X',
-			'geopoint_y' => 'Координата Y',
 			'status' => 'Статус',
 		);
 	}
@@ -112,11 +98,6 @@ class PartnerOffices extends ActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('schedule',$this->schedule,true);
-		$criteria->compare('ymaps_type',$this->ymaps_type,true);
-		$criteria->compare('cgeopoint_x',$this->cgeopoint_x);
-		$criteria->compare('cgeopoint_y',$this->cgeopoint_y);
-		$criteria->compare('geopoint_x',$this->geopoint_x);
-		$criteria->compare('geopoint_y',$this->geopoint_y);
         if( $this->status >= 0 )
         {
             $criteria->compare('status',$this->status);
@@ -128,7 +109,7 @@ class PartnerOffices extends ActiveRecord
 	}
     
     /**
-    * @return array user type names indexed by type IDs
+    * @return array status
     */
     public function getStatusOptions()
     {
@@ -136,24 +117,5 @@ class PartnerOffices extends ActiveRecord
             self::STATUS_INACTIVE  => 'Не опубликован',
             self::STATUS_ACTIVE => 'Опубликован',
         );
-    }
-    
-    /**
-    * @return array map type names indexed by type
-    */
-    public function getMapTypes()
-    {
-        return array(
-            self::YMAP_MAP  => 'Схема',
-            self::YMAP_SATELLITE => 'Спутник',
-            self::YMAP_HYBRID => 'Гибрид',
-            self::YMAP_PMAP => 'Народная',
-        );
-    }
-    
-    public function getMapName($index)
-    {
-        $mapTypes = $this->getMapTypes();
-        return $mapTypes[$index];
     }
 }
