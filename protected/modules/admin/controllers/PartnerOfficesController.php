@@ -86,7 +86,14 @@ class PartnerOfficesController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-        $ymapModel = YandexMapModel::model();
+        if( is_null($model->ymap) )
+        {
+            $ymapModel = new YandexMapModel;
+        }
+        else
+        {
+            $ymapModel = $model->ymap;
+        }
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -94,9 +101,20 @@ class PartnerOfficesController extends Controller
 		if(isset($_POST['PartnerOffices']))
 		{
 			$model->attributes=$_POST['PartnerOffices'];
+            
+            $_POST['YandexMapModel']['owner_id'] = intval($id);
+            $_POST['YandexMapModel']['model'] = PartnerOffices::getYMapModelName();
+            $ymapModel->attributes=$_POST['YandexMapModel'];
+            
 			if($model->save())
             {
                 Yii::app()->user->setFlash('success', '<strong>Сохранено!</strong> Изменения в адресе успешно сохранены.');
+                if( !$ymapModel->save() )
+                {
+                    Yii::app()->user->setFlash('error', '<strong>Ошибка!</strong> Не удалось сохранить координаты объекта на карте.');
+                }
+
+                
                 if(isset($_POST['savePartnerOffices']))
                 {
                     $this->redirect(array('update','id'=>$model->id));
@@ -110,6 +128,7 @@ class PartnerOfficesController extends Controller
             {
                 Yii::app()->user->setFlash('error', '<strong>Ошибка!</strong> Проверьте правильность заполнения полей.');
             }
+            
 		}
 
 		$this->layout = '/layouts/column1-page';

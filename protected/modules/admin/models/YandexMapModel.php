@@ -4,6 +4,7 @@
  * This is the model class for table "{{yandex_map}}".
  *
  * The followings are the available columns in table '{{yandex_map}}':
+ * @property integer $id
  * @property integer $owner_id
  * @property string $model
  * @property double $center_lat
@@ -16,7 +17,7 @@
  */
 class YandexMapModel extends ActiveRecord
 {
-	/**
+     /**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return YandexMap the static model class
@@ -33,8 +34,8 @@ class YandexMapModel extends ActiveRecord
 	{
 		return '{{yandex_map}}';
 	}
-
-	/**
+    
+    /**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -45,11 +46,12 @@ class YandexMapModel extends ActiveRecord
 			array('owner_id, model, center_lat, center_lon, placemrk_lat, placemrk_lon, zoom, type', 'required'),
 			array('zoom, status', 'numerical', 'integerOnly'=>true),
 			array('center_lat, center_lon, placemrk_lat, placemrk_lon', 'numerical'),
-			array('owner_id, model', 'length', 'max'=>10),
+			array('owner_id', 'length', 'max'=>10),
+			array('model', 'length', 'max'=>20),
 			array('type', 'length', 'max'=>40),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('owner_id, model, center_lat, center_lon, placemrk_lat, placemrk_lon, zoom, type, status', 'safe', 'on'=>'search'),
+			array('id, owner_id, model, center_lat, center_lon, placemrk_lat, placemrk_lon, zoom, type, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +73,7 @@ class YandexMapModel extends ActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'id' => 'ID',
 			'owner_id' => 'Owner',
 			'model' => 'Model',
 			'center_lat' => 'Center Lat',
@@ -94,6 +97,7 @@ class YandexMapModel extends ActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id,true);
 		$criteria->compare('owner_id',$this->owner_id,true);
 		$criteria->compare('model',$this->model,true);
 		$criteria->compare('center_lat',$this->center_lat);
@@ -108,6 +112,20 @@ class YandexMapModel extends ActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    
+    protected function beforeSave()
+    {
+        if(parent::beforeSave())
+        {
+            $this->center_lat = round($this->center_lat, 6);
+            $this->center_lon = round($this->center_lon, 6);
+            $this->placemrk_lat = round($this->placemrk_lat, 6);
+            $this->placemrk_lon = round($this->placemrk_lon, 6);
+            return true;
+        }
+        else
+            return false;
+    }
     
     /**
     * @return array status

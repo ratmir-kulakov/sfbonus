@@ -2,6 +2,7 @@
 /* @var $this PartnerOfficesController */
 /* @var $model PartnerOffices */
 /* @var $form CActiveForm */
+/* @var $ymapModel YandexMapModel */
 
 $this->widget('bootstrap.widgets.TbAlert', array(
     'block'=>false, // display a larger alert block?
@@ -53,8 +54,6 @@ $this->widget('bootstrap.widgets.TbAlert', array(
     <div class="control-group" style="padding-bottom: 36px; ">
         <label for="Partner_content">Схема проезда</label>
         <div class="controls controls-row">
-        <?php if( count($model->ymap) ): ?>
-        <?php else: ?>
             <?php echo Html::activeDropDownList($ymapModel,
                                             'status', 
                                             array(
@@ -63,12 +62,16 @@ $this->widget('bootstrap.widgets.TbAlert', array(
                                             ), 
                                             array('class'=>'span3')
                   ); 
-            
+            ?>
+            <div class="clear-left"></div>
+            <?php
             $this->widget('ext.yandexmap.YandexMap',array(
                 'id'=>'map',
                 'width'=>600,
                 'height'=>400,
-                'center'=>array(55.76, 37.64),
+                'center'=>array($ymapModel->center_lat, $ymapModel->center_lon),
+                'zoom'=>$ymapModel->zoom,
+                'type'=>$ymapModel->type,
                 'controls' => array(
                     'zoomControl' => true,
                     'typeSelector' => true,
@@ -83,8 +86,8 @@ $this->widget('bootstrap.widgets.TbAlert', array(
                 ),
                 'placemark' => array(
                     array(
-                        'lat'=>55.8,
-                        'lon'=>37.8,
+                        'lat'=>$ymapModel->placemrk_lat,
+                        'lon'=>$ymapModel->placemrk_lon,
                         'properties'=>array(
                             'balloonContentHeader'=>'header',
                             'balloonContent'=>'1',
@@ -99,15 +102,16 @@ $this->widget('bootstrap.widgets.TbAlert', array(
                 ),
             ));
             
-            echo Html::activeHiddenField($ymapModel, 'center_lat', array('id'=>'ymap_center_lat', 'value'=>55.76));
-            echo Html::activeHiddenField($ymapModel, 'center_lon', array('id'=>'ymap_center_lon', 'value'=>37.64));
-            echo Html::activeHiddenField($ymapModel, 'placemrk_lat', array('id'=>'ymap_placemrk_lat', 'value'=>55.8));
-            echo Html::activeHiddenField($ymapModel, 'placemrk_lon', array('id'=>'ymap_placemrk_lon', 'value'=>37.8));
-            echo Html::activeHiddenField($ymapModel, 'zoom', array('id'=>'ymap_zoom', 'value'=>1));
-            echo Html::activeHiddenField($ymapModel, 'type', array('id'=>'ymap_type', 'value'=>'yandex#map'));
+            echo Html::activeHiddenField($ymapModel, 'center_lat', array('id'=>'ymap_center_lat'));
+            echo Html::activeHiddenField($ymapModel, 'center_lon', array('id'=>'ymap_center_lon'));
+            echo Html::activeHiddenField($ymapModel, 'placemrk_lat', array('id'=>'ymap_placemrk_lat'));
+            echo Html::activeHiddenField($ymapModel, 'placemrk_lon', array('id'=>'ymap_placemrk_lon'));
+            echo Html::activeHiddenField($ymapModel, 'zoom', array('id'=>'ymap_zoom'));
+            echo Html::activeHiddenField($ymapModel, 'type', array('id'=>'ymap_type'));
             ?>
-        <?php endif;?>
         <?php
+        //TODO Выяснить как отлавливать значение при изменениитипа карты
+        //TODO Выяснить как отключать submit формы при нажатии Enter в форме поиска объекта
         Yii::app()->clientScript->registerScript(
                 'partnerOffice'.$model->id,
                 '
@@ -116,7 +120,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
                     var search = map.controls.get("searchControl");
                     var typeSelector = map.controls.get("typeSelector");
                     
-                    
+                                       
                     $("#ymap_type").val(map.getType());
                     $("#ymap_zoom").val(map.getZoom());
                     $("#ymap_center_lat").val(map.getCenter()[0]);

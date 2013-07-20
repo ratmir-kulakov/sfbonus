@@ -20,6 +20,7 @@ class YandexMap extends CWidget
 	public $width = 600;
 	public $height = 400;
 	public $zoom = 7;
+	public $type = 'yandex#map';
 	public $center = array("ymaps.geolocation.latitude", "ymaps.geolocation.longitude");
 
 	public $options = array();
@@ -57,14 +58,22 @@ class YandexMap extends CWidget
 
 		if ( $this->zoom )
 			$state[] = 'zoom:'.$this->zoom;
+        
+//		if ( $this->type )
+//			$state[] = 'type:'.$this->type;
 
 		$state = implode(",",$state);
 
 		$options = $this->generateOptions($this->options);
 		return "map = new ymaps.Map ('{$this->id}',{".$state."},{".$options."});";
 	}
+    
+    protected function printType()
+    {
+        return 'map.setType("'.$this->type.'")';
+    }
 
-	protected function initMapControl(){
+    protected function initMapControl(){
 		$controls = array();
 
 		if ( is_array($this->controls) && !empty($this->controls) )
@@ -95,6 +104,7 @@ class YandexMap extends CWidget
 		$this->connectYandexJsFile();
 
 		$map = $this->initMapJsObject();
+        $type = $this->printType();
 		$control = $this->initMapControl();
 
 		$placemark = $this->placemarks();
@@ -104,6 +114,7 @@ class YandexMap extends CWidget
 
 ymaps.ready(function(){
 	$map
+	$type
 	$control
 	$placemark
 	$polyline

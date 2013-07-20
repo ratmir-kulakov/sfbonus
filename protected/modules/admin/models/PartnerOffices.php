@@ -16,7 +16,7 @@
  */
 class PartnerOffices extends ActiveRecord
 {
-    private static $ymap_mode = __CLASS__;
+    private static $ymap_model = 'partnOffice';
 
     /**
 	 * Returns the static model of the specified AR class.
@@ -63,7 +63,7 @@ class PartnerOffices extends ActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'partner' => array(self::BELONGS_TO, 'Partner', 'partner_id'),
-            'ymap' => array(self::HAS_ONE, 'YandexMapModel', array('owner_id'=>'id'),'on'=>'ymap.model=\''.self::$ymap_mode.'\''),
+            'ymap' => array(self::HAS_ONE, 'YandexMapModel', array('owner_id'=>'id'),'on'=>'ymap.model=\''.self::$ymap_model.'\''),
 		);
 	}
 
@@ -117,5 +117,10 @@ class PartnerOffices extends ActiveRecord
             self::STATUS_INACTIVE  => 'Не опубликован',
             self::STATUS_ACTIVE => 'Опубликован',
         );
+    }
+    
+    public static function getYMapModelName()
+    {
+        return self::$ymap_model;
     }
 }
