@@ -20,6 +20,17 @@ class YandexMap extends CWidget
 	public $width = 600;
 	public $height = 400;
 	public $zoom = 7;
+    /**
+     * Mpa type
+     * 
+     * @var string
+     * 
+     * схема ('yandex#map')
+     * спутник ('yandex#satellite')
+     * гибрид ('yandex#hybrid')
+     * народная карта ('yandex#publicMap')
+     * народная карта в гибридном представлении ('yandex#publicMapHybrid') 
+     */
 	public $type = 'yandex#map';
 	public $center = array("ymaps.geolocation.latitude", "ymaps.geolocation.longitude");
 

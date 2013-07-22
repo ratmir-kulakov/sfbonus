@@ -12,16 +12,14 @@ $this->breadcrumbs = array(
 );
 
 
-if(Yii::app()->user->checkAccess('administrator'))
-{
-    $this->backLink = Yii::app()->createUrl('/admin/partner/update', array('id'=>$model->partner_id));
-    $this->controlButtons[] = array(
-        'icon' => 'icon icon-plus-sign icon-white',
-        'label' => 'Добавить',
-        'type' => 'success',
-        'url' => array('/admin/partnerOffices/create', 'pid'=>$model->partner_id),
-    );
-}
+$this->backLink = Yii::app()->createUrl('/admin/partner/update', array('id'=>$model->partner_id));
+$this->controlButtons[] = array(
+    'icon' => 'icon icon-plus-sign icon-white',
+    'label' => 'Добавить',
+    'type' => 'success',
+    'url' => array('/admin/partnerOffices/create', 'pid'=>$model->partner_id),
+);
+
 
 $this->controlButtons[] = array(
     'buttonType'=>'submit',
@@ -30,30 +28,29 @@ $this->controlButtons[] = array(
     'type' => 'primary',
     'htmlOptions'=>array(
         'name'=>'savePartnerOffices',
+        'onclick' => 'if($(window.getSelection().focusNode).hasClass("ymaps-b-form-input__box")) {return false;} else {return true;}' ,
     ),
 );
 
-if(Yii::app()->user->checkAccess('administrator'))
-{
-    $this->controlButtons[] = array(
-        'buttonType'=>'submit',
-        'icon' => 'check',
-        'label' => 'Сохранить и выйти',
-        'htmlOptions'=>array(
-            'name'=>'savePartnerOfficesExit',
-        ),
-    );
-    $this->controlButtons[] = array(
-        'buttonType'=>'submit',
-        'icon' => 'trash white',
-        'label' => 'Удалить',
-        'type' => 'danger',
-        'htmlOptions'=>array(
-            'submit' => array('PartnerOffices/delete', 'id'=>$model->id),
-            'confirm' => 'Вы уверены, что хотите удалить данную страницу?'
-        ),
-    );
-}
+$this->controlButtons[] = array(
+    'buttonType'=>'submit',
+    'icon' => 'check',
+    'label' => 'Сохранить и выйти',
+    'htmlOptions'=>array(
+        'name'=>'savePartnerOfficesExit',
+        'onclick' => 'if($(window.getSelection().focusNode).hasClass("ymaps-b-form-input__box")) {return false;} else {return true;}' ,
+    ),
+);
+$this->controlButtons[] = array(
+    'buttonType'=>'submit',
+    'icon' => 'trash white',
+    'label' => 'Удалить',
+    'type' => 'danger',
+    'htmlOptions'=>array(
+        'submit' => array('PartnerOffices/delete', 'id'=>$model->id),
+        'confirm' => 'Вы уверены, что хотите удалить данную страницу?'
+    ),
+);
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'partner-form',

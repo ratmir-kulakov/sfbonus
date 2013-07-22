@@ -12,16 +12,13 @@ $this->breadcrumbs = array(
 );
 
 
-if(Yii::app()->user->checkAccess('administrator'))
-{
-    $this->backLink = '/admin/partner';
-    $this->controlButtons[] = array(
-        'icon' => 'icon icon-plus-sign icon-white',
-        'label' => 'Добавить',
-        'type' => 'success',
-        'url' => '/admin/partner/create',
-    );
-}
+$this->backLink = '/admin/partner';
+$this->controlButtons[] = array(
+    'icon' => 'icon icon-plus-sign icon-white',
+    'label' => 'Добавить',
+    'type' => 'success',
+    'url' => '/admin/partner/create',
+);
 
 $this->controlButtons[] = array(
     'buttonType'=>'submit',
@@ -33,27 +30,24 @@ $this->controlButtons[] = array(
     ),
 );
 
-if(Yii::app()->user->checkAccess('administrator'))
-{
-    $this->controlButtons[] = array(
-        'buttonType'=>'submit',
-        'icon' => 'check',
-        'label' => 'Сохранить и выйти',
-        'htmlOptions'=>array(
-            'name'=>'savePartnerExit',
-        ),
-    );
-    $this->controlButtons[] = array(
-        'buttonType'=>'submit',
-        'icon' => 'trash white',
-        'label' => 'Удалить',
-        'type' => 'danger',
-        'htmlOptions'=>array(
-            'submit' => array('partner/delete', 'id'=>$model->id),
-            'confirm' => 'Вы уверены, что хотите удалить данную страницу?'
-        ),
-    );
-}
+$this->controlButtons[] = array(
+    'buttonType'=>'submit',
+    'icon' => 'check',
+    'label' => 'Сохранить и выйти',
+    'htmlOptions'=>array(
+        'name'=>'savePartnerExit',
+    ),
+);
+$this->controlButtons[] = array(
+    'buttonType'=>'submit',
+    'icon' => 'trash white',
+    'label' => 'Удалить',
+    'type' => 'danger',
+    'htmlOptions'=>array(
+        'submit' => array('partner/delete', 'id'=>$model->id),
+        'confirm' => 'Вы уверены, что хотите удалить данную страницу?'
+    ),
+);
 
 $this->menu=array(
 	array(

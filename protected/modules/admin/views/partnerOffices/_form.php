@@ -48,6 +48,9 @@ $this->widget('bootstrap.widgets.TbAlert', array(
             <p class="help-block"><strong>Примечание:</strong> График работы магазина/кафе/ресторана. Например, 10:00 - 23:00 (Понедельник-Воскресенье)</p>
         </div>
     </div>
+    <?php if( $model->isNewRecord ): ?>
+    <?php echo Html::activeHiddenField($model, 'partner_id', array('id'=>'partner_id')); ?>
+    <?php endif; ?>
     <div class="control-group">
         <?php echo $form->dropDownListRow($model,'status', $model->statusOptions, array('class'=>'span3','hint'=>'<strong>Примечание:</strong> Только адрес со статусом "Опубликован" отображается на соответствующей странице сайта.')); ?>
     </div>
@@ -71,7 +74,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
                 'height'=>400,
                 'center'=>array($ymapModel->center_lat, $ymapModel->center_lon),
                 'zoom'=>$ymapModel->zoom,
-                'type'=>$ymapModel->type,
+                'type'=>$ymapModel->type ? $ymapModel->type : 'yandex#map',
                 'controls' => array(
                     'zoomControl' => true,
                     'typeSelector' => true,

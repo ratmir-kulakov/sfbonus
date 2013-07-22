@@ -91,9 +91,9 @@
         'icon' => 'plus-sign white',
         'label' => 'Добавить',
         'type' => 'success',
-        'url' => array('partnerOffices/create', 'pid'=>'1'),
+        'url' => array('partnerOffices/create', 'pid'=>$model->id),
         'htmlOptions' => array(
-            'id'=>'removeAllAdrBtn',
+            'id'=>'addAdrBtn',
             'class'=>'btn-mini top-btn mg-left-mini',
         ),
     ));

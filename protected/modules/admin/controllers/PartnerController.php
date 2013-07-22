@@ -29,12 +29,8 @@ class PartnerController extends Controller
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','view','admin','delete', 'deletescope', 'create', 'update'),
-				'roles'=>array('administrator'),
+				'roles'=>array('administrator','moderator'),
 			),
-			array('allow',
-                'actions'=>array('update'),
-                'roles'=>array('moderator'),
-            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),

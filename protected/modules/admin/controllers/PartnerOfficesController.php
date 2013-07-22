@@ -29,12 +29,8 @@ class PartnerOfficesController extends Controller
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('view','delete', 'deletescope', 'create', 'update'),
-				'roles'=>array('administrator'),
+				'roles'=>array('administrator','moderator'),
 			),
-			array('allow',
-                'actions'=>array('update'),
-                'roles'=>array('moderator'),
-            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -47,24 +43,51 @@ class PartnerOfficesController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new PartnerOffices;
+		$pid = Yii::app()->request->getParam('pid');
+        if( $pid === null )
+			throw new CHttpException(404,'The requested page does not exist.');
+        
+        $pid = intval($pid);
+        $partnerModel = Partner::model()->findByPk($pid);
+		if( $partnerModel === null )
+			throw new CHttpException(404,'The requested page does not exist.');
+        
+        $model = new PartnerOffices;
+        $model->partner_id = intval($pid);
+        
+        
+        $ymapModel = new YandexMapModel;
+        $ymapModel->center_lat = 55.76;
+        $ymapModel->center_lon = 37.64;
+        $ymapModel->placemrk_lat = 55.76;
+        $ymapModel->placemrk_lon = 37.51;
+        $ymapModel->zoom = 7;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['PartnerOffices']))
+		if( isset($_POST['PartnerOffices']) )
 		{
 			$model->attributes=$_POST['PartnerOffices'];
-			if($model->save())
+			if( $model->save() )
             {
                 Yii::app()->user->setFlash('success', '<strong>Сохранено!</strong> Адрес успешно добавлен.');
+                
+                $_POST['YandexMapModel']['owner_id'] = intval($model->id);
+                $_POST['YandexMapModel']['model'] = PartnerOffices::getYMapModelName();
+                $ymapModel->attributes=$_POST['YandexMapModel'];
+                if( !$ymapModel->save() )
+                {
+                    Yii::app()->user->setFlash('error', '<strong>Ошибка!</strong> Не удалось сохранить координаты объекта на карте.');
+                }
+                
                 if(isset($_POST['savePartnerOffices']))
                 {
                     $this->redirect(array('update','id'=>$model->id));
                 }
                 else
                 {
-                    $this->redirect(array('index'));
+                    $this->redirect(array('/admin/partner/update','id'=>$model->partner_id));
                 }
             }
             else
@@ -73,8 +96,10 @@ class PartnerOfficesController extends Controller
             }
 		}
 
+        $this->layout = '/layouts/column1-page';
 		$this->render('create',array(
 			'model'=>$model,
+            'ymapModel' => $ymapModel,
 		));
 	}
 
