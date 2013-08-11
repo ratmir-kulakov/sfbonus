@@ -144,10 +144,16 @@ $(document).ready(function(){
         else
         {
             $("#local-nav a").each(function(){
-                var id = $(this).attr("href"),
-                    $selectedBlock = $(id),
+                var id = getIdFromHref($(this).attr("href")),
+                    $selectedBlock = null,
                     $parentLi = null;
-
+                    
+                if( id === null )
+                {
+                    return false;
+                }
+                
+                $selectedBlock = $(id);
                 if($selectedBlock && $selectedBlock.length)
                 {
                     if( $this.scrollTop() >= $selectedBlock.offset().top - offsetHeight && $this.scrollTop() < $selectedBlock.offset().top - offsetHeight + $selectedBlock.outerHeight() )
@@ -167,13 +173,13 @@ $(document).ready(function(){
     
     $("#local-nav a").click(function(e){
         var $clickedLink = $(this),
-            id = $clickedLink.attr("href"), 
+            id = getIdFromHref($clickedLink.attr("href")), 
             $selectedBlock = null;
         
-        var expr = /^(.*#)/;
-        
-        id = '#' + id.replace(expr, '');
-        
+        if( id === null )
+        {
+            return false;
+        }
         
         $selectedBlock = $(id);
         if($selectedBlock && $selectedBlock.length)
@@ -189,4 +195,51 @@ $(document).ready(function(){
         return false;
     });
     
+    $('input:file').change(function(){
+        if( $(this).attr('data-toggle') && $(this).attr('data-toggle') != '' )
+        {
+            var $img = $('#' + $(this).attr('data-toggle'));
+            if( ! isEnabledFileAPI())
+            {
+                if( console && console.log)
+                {
+                    console.log('Ваш браузер не поддерживает работу с FileAPI');
+                }
+                return false;
+            }
+            
+            var reader = new FileReader();
+            if( $img.length )
+            {
+                reader.onloadend = function() {
+                    $img.attr('src', reader.result);
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        }
+    });
+    
 });
+
+function getIdFromHref(href)
+{
+    var id = '',
+        lastPos = String(href).lastIndexOf('#');
+    
+    if( lastPos < 0 )
+    {
+        return null;
+    }
+    id = String(href).substr(lastPos);    
+    return id;
+}
+
+function isEnabledFileAPI()
+{
+    var fileAPISupport = false;
+    if(window.File && window.FileReader && window.FileList && window.Blob) 
+    {
+        fileAPISupport = true;
+    }
+    return fileAPISupport;
+}

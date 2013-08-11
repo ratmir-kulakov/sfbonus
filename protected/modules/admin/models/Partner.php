@@ -14,11 +14,13 @@
  * @property string $last_update_date
  * @property string $created_date
  * @property integer $status
+ * @property ImageARBehavior $logoImgBehavior
  */
 class Partner extends ActiveRecord
 {
-    
-	/**
+    public $image = null;
+
+    /**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return Partner the static model class
@@ -45,6 +47,7 @@ class Partner extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
+            array('image', 'file', 'types'=>'jpg, gif, png', 'allowEmpty'=>true, 'maxSize' => 1048576),
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('name, meta_title, meta_description, meta_keywords', 'length', 'max'=>255),
 			array('last_update_date, created_date', 'length', 'max'=>10),
@@ -154,6 +157,47 @@ class Partner extends ActiveRecord
 		));
 	}
     
+    public function beforeDelete()
+    {
+        if( is_array($this->offices) )
+        {
+            foreach($this->offices as $office)
+            {
+                $office->delete();
+            }
+        }
+        else
+        {
+            $offices = PartnerOffices::model()->with('ymap')->findAll('partner_id=:partnerId', array(':partnerId'=>$this->id));
+            foreach($offices as $office)
+            {
+                $office->delete();
+            }
+        }
+        
+        return parent::beforeDelete();
+    }
+    
+    public function deleteAll($condition = '', $params = array())
+    {
+        $models = $this->findAll($condition, $params);
+        $partnersId = array();
+        foreach($models as $model)
+        {
+            $partnersId[] = $model->id;
+        }
+        
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('partner_id', $partnersId);
+        $offices = PartnerOffices::model()->with('ymap')->findAll($criteria);
+        foreach($offices as $office)
+        {
+            $office->delete();
+        }
+        
+        return parent::deleteAll($condition, $params);
+    }
+    
     public function behaviors() 
     {  
         return array(  
@@ -163,6 +207,33 @@ class Partner extends ActiveRecord
                 'updateAttribute' => 'last_update_date',  
                 'setUpdateOnCreate' => true,  
             ),  
+            'logoImgBehavior' => array(  
+                'class' => 'application.components.behaviors.ImageARBehavior',  
+                'attribute' => 'image', // Эта переменная которую мы объявлили  
+                'extension' => 'png, gif, jpg', // Возможные расширения файла  
+                'prefix' => 'logo_',  
+                'relativeWebRootFolder' => 'upload/partners', // this folder must exist  
+
+                // 'forceExt' => png, // Если раскомментировать эту строчку, то изображения будут конвертироватся в png формат  
+
+                // Определяем "форматы" в которых будут хранится изображения  
+                'formats' => array(  
+                    '126x126' => array(  
+                        'suffix' => '_small',  
+                        'process' => array('resize' => array(126, 126)),  
+                    ),  
+                    // and override the default :  
+                    '300x300' => array(  
+                        'process' => array('resize' => array(300, 300)),  
+                    ),  
+                ),  
+
+                'defaultName' => 'nophoto', // when no file is associated, this one is used by getFileUrl  
+                // defaultName need to exist in the relativeWebRootFolder path, and prefixed by prefix,  
+                // and with one of the possible extensions. if multiple formats are used, a default file must exist  
+                // for each format. Name is constructed like this :  
+                //     {prefix}{name of the default file}{suffix}{one of the extension}  
+            ),
         );  
-    }  
+    } 
 }

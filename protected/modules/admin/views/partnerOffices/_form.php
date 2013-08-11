@@ -114,7 +114,6 @@ $this->widget('bootstrap.widgets.TbAlert', array(
             ?>
         <?php
         //TODO Выяснить как отлавливать значение при изменениитипа карты
-        //TODO Выяснить как отключать submit формы при нажатии Enter в форме поиска объекта
         Yii::app()->clientScript->registerScript(
                 'partnerOffice'.$model->id,
                 '

@@ -109,11 +109,16 @@ class PartnerOfficesController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 	public function actionUpdate($id)
-	{
+	{        
 		$model=$this->loadModel($id);
         if( is_null($model->ymap) )
         {
             $ymapModel = new YandexMapModel;
+            $ymapModel->center_lat = 55.76;
+            $ymapModel->center_lon = 37.64;
+            $ymapModel->placemrk_lat = 55.76;
+            $ymapModel->placemrk_lon = 37.51;
+            $ymapModel->zoom = 7;
         }
         else
         {
@@ -170,14 +175,16 @@ class PartnerOfficesController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if($this->loadModel($id)->delete())
+        $model = $this->loadModel($id);
+        
+		if( $model->delete() )
         {
             Yii::app()->user->setFlash('success', '<strong>Удалено!</strong> Адрес успешно удален.');
         }
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('/admin/partner/update','id'=>$model->partner_id));
 	}
     
     /**
@@ -186,12 +193,17 @@ class PartnerOfficesController extends Controller
      */
     public function actionDeletescope()
     {
-        if(isset($_POST['Ids']))
+        if( isset($_POST['Ids']) )
         {
-              $ids=explode(',', $_POST['Ids']);
-              $criteria = new CDbCriteria;
-              $criteria->addInCondition('id', $ids);
-              PartnerOffices::model()->deleteAll($criteria);
+            $ids = explode(',', $_POST['Ids']);
+            print_r($ids);
+            $criteria = new CDbCriteria;
+            $criteria->addInCondition('id', $ids);
+            $models = PartnerOffices::model()->with('ymap')->findAll($criteria);
+            foreach($models as $model)
+            {
+                $model->delete();
+            }
         }
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

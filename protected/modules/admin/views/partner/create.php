@@ -52,7 +52,7 @@ $this->menu=array(
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id'=>'partner-form',
     'enableAjaxValidation'=>false,
-    'htmlOptions'=>array('class'=>'partner-form'),
+    'htmlOptions'=>array('class'=>'partner-form','enctype'=>'multipart/form-data'),
     'inlineErrors'=>true,
 )); 
 ?>

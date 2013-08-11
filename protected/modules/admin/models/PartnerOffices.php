@@ -123,4 +123,24 @@ class PartnerOffices extends ActiveRecord
     {
         return self::$ymap_model;
     }
+    
+    public function beforeDelete()
+    {
+        if( is_object($this->ymap) )
+        {
+            $this->ymap->delete();
+        }
+        else
+        {
+            YandexMapModel::model()->deleteAll(
+                "owner_id=:ownerId and model=':modelName'", 
+                array(
+                    ':ownerId'=>$this->id,
+                    ':modelName'=>$this->getYMapModelName(),
+                )
+            );
+        }
+        
+        return parent::beforeDelete();
+    }
 }

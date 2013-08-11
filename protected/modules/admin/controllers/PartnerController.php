@@ -121,7 +121,8 @@ class PartnerController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if($this->loadModel($id)->delete())
+		$model = Partner::model()->with('offices')->findByPk($id);
+        if($model->delete())
         {
             Yii::app()->user->setFlash('success', '<strong>Удалено!</strong> Информация о партнере успешно удален.');
         }

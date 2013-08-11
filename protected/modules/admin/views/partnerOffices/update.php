@@ -28,7 +28,7 @@ $this->controlButtons[] = array(
     'type' => 'primary',
     'htmlOptions'=>array(
         'name'=>'savePartnerOffices',
-        'onclick' => 'if($(window.getSelection().focusNode).hasClass("ymaps-b-form-input__box")) {return false;} else {return true;}' ,
+        'onclick' => 'if($(window.getSelection().focusNode).hasClass("ymaps-b-form-input__box")) {return false;} else {return true;}',
     ),
 );
 
@@ -38,7 +38,7 @@ $this->controlButtons[] = array(
     'label' => 'Сохранить и выйти',
     'htmlOptions'=>array(
         'name'=>'savePartnerOfficesExit',
-        'onclick' => 'if($(window.getSelection().focusNode).hasClass("ymaps-b-form-input__box")) {return false;} else {return true;}' ,
+        'onclick' => 'if($(window.getSelection().focusNode).hasClass("ymaps-b-form-input__box")) {return false;} else {return true;}',
     ),
 );
 $this->controlButtons[] = array(

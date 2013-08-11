@@ -18,7 +18,7 @@ $this->controlButtons[] = array(
     'label' => 'Сохранить',
     'type' => 'primary',
     'htmlOptions'=>array(
-        'name'=>'savePartner',
+        'name'=>'savePartnerOffices',
         'onclick' => 'if($(window.getSelection().focusNode).hasClass("ymaps-b-form-input__box")) {return false;} else {return true;}' ,
     ),
 );
@@ -27,7 +27,8 @@ $this->controlButtons[] = array(
     'icon' => 'check',
     'label' => 'Сохранить и выйти',
     'htmlOptions'=>array(
-        'name'=>'savePartnerExit',
+        'name'=>'savePartnerOfficesExit',
+        'onclick' => 'if($(window.getSelection().focusNode).hasClass("ymaps-b-form-input__box")) {return false;} else {return true;}',
     ),
 );
 

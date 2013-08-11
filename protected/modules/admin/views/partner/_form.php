@@ -3,7 +3,6 @@
 /* @var $model Partner */
 /* @var $form CActiveForm */
 ?>
-<!--<pre><?php print_r($model->offices); ?></pre>-->
 <?php $this->widget('bootstrap.widgets.TbAlert', array(
     'block'=>false, // display a larger alert block?
     'fade'=>true, // use transitions?
@@ -19,11 +18,25 @@
 
 <section class="page-part" id="main">
     <h1>Основное</h1>
+    <div id="logo-box">
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType'=>'button',
+            'icon' => 'icon-edit',
+            'htmlOptions' => array(
+                'title' => 'Изменить логотип',
+                'onclick' => '$(this).parent().find("input:file").click();',
+            ),
+        )); ?>
+        <div class="bg"></div>
+        <img class="logo" id="logo" src="<?php echo $model->logoImgBehavior->getFileUrl('126x126'); ?>" alt="" />
+        <?php echo $form->fileField($model, 'image', array('style'=>'display: none;', 'data-toggle'=>'logo')) ?>
+    </div>
     <div class="control-group">
         <?php echo $form->textFieldRow($model, 'name', array('class'=>'span5')); ?>
     </div>
+    <div class="clear-right"></div>
     <div class="control-group">
-        <label for="Partner_content">Условия предоставления бонусных баллов</label>
+        <label class="title" for="Partner_content">Условия предоставления бонусных баллов</label>
         <div class="controls controls-row">
             <?php //you can use any desired dir to install this extension
             //TODO Исправить все ошибкив в elFinder
@@ -99,6 +112,7 @@
     ));
     ?>
     <?php
+    /*
     $this->widget('bootstrap.widgets.TbButton',array(
         'buttonType' => 'ajaxLink',
         'icon' => 'trash white',
@@ -121,6 +135,7 @@
             }',
             'data'=>'js:{Ids : $.fn.yiiGridView.getChecked("partner-adr-grid-view-id","partnerAdrIds").toString(), YII_CSRF_TOKEN : "'.Yii::app()->request->csrfToken.'"}', //ids of checked rows are converted to a string
             'success'=>'function(data){
+                alert(data);
                 $.fn.yiiGridView.update("partner-adr-grid-view-id", {url:""});
             }',
             'error'=>'function(jqXHR, textStatus){
@@ -132,6 +147,7 @@
             'class'=>'btn-mini top-btn mg-left-mini',
         ),
     ));
+     */
     ?>
     <?php
     $this->widget('bootstrap.widgets.TbGridView', array(
@@ -142,15 +158,17 @@
         //to update the table after ajax datePicker was available
         'afterAjaxUpdate'=>"function() {}", 
         'columns' => array(
+            /*
             array(
                 'class'=>'CCheckBoxColumn', 
                 'selectableRows' => 2,
-                'id'=>'partnerids',
+                'id'=>'partnerAdrIds',
                 'checkBoxHtmlOptions' => array(
                     'name' => 'partnerAdrIds[]',
                 ),
                 'value'=>'$data->id',
             ),
+            */
             array(
                 'name'=>'Адрес',
                 'type' => 'raw',

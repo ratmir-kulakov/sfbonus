@@ -359,6 +359,11 @@ span#top {
     padding: 0 0 10px;
 }
 
+.control-group .title {
+    /*font-size: 16px;*/
+    /*font-weight: bold;*/
+}
+
 .controls span.help-block, .controls p.help-block {
     clear: left;
     color: #999;
@@ -514,6 +519,40 @@ span#top {
 
 .table th a.sort-link {
     color: #333;
+}
+
+#logo-box {
+    border: 1px solid #ddd;
+    float: left;
+    height: 126px;
+    margin-right: 30px;
+    padding: 2px;
+    position: relative;
+    width: 126px;
+}
+#logo-box .bg {
+    background: rgba(0, 0, 0, 0.35);
+    display: none;
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 300;
+}
+#logo-box:hover .bg {
+    display: block;
+}
+#logo-box .btn {
+    display: none;
+    /*left: 45px;*/
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 400;
+}
+#logo-box:hover .btn {
+    display: inline-block;
 }
 
 /*-----User-----*/
