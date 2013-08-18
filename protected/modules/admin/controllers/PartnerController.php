@@ -143,7 +143,13 @@ class PartnerController extends Controller
               $ids=explode(',', $_POST['Ids']);
               $criteria = new CDbCriteria;
               $criteria->addInCondition('id', $ids);
-              Partner::model()->deleteAll($criteria);
+//              Partner::model()->deleteAll($criteria);
+              $models = Partner::model()->findAll($criteria);
+              foreach($models as $model)
+              {
+                  /* @var $model Partner */
+                  $model->delete();
+              }
         }
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

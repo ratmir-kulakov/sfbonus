@@ -28,7 +28,7 @@
             ),
         )); ?>
         <div class="bg"></div>
-        <img class="logo" id="logo" src="<?php echo $model->logoImgBehavior->getFileUrl('126x126'); ?>" alt="" />
+        <img class="logo" id="logo" src="<?php echo $model->logoImgBehavior->getFileUrl('126x126'); ?>" style="width: 126px; height: 126px;" alt="" />
         <?php echo $form->fileField($model, 'image', array('style'=>'display: none;', 'data-toggle'=>'logo')) ?>
     </div>
     <div class="control-group">

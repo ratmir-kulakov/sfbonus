@@ -16,6 +16,7 @@ return array(
 
 	// preloading 'log' component
 	'preload'=>array(
+        'config',
         'log',
     ),
 
@@ -56,6 +57,9 @@ return array(
         ),
         'clientScript'=>array(
             'coreScriptPosition' => CClientScript::POS_END,
+        ),
+        'config'=>array(
+            'class'=>'application.components.CConfig',
         ),
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=sfbonus_db',

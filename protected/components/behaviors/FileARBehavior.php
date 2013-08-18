@@ -261,6 +261,6 @@ class FileARBehavior extends CActiveRecordBehavior {
 	 */
 	protected function deleteFile($path, $fname) {
 		$fs = $this->getAnyExistingFilesName($path, $fname);
-		foreach ($fs as $f) unlink($f);
+		foreach ($fs as $f) @unlink($f);
 	}
 }

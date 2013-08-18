@@ -2,9 +2,10 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="description" content=""/>
-        <meta name="description" content=""/>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+        <meta name="description" content=""/>
+        <meta name="description" content=""/>
+        <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jScrollPane/jScrollPane.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/admin/style.css" />
     </head>

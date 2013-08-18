@@ -86,12 +86,12 @@ ul.nav.main li ul.dropdown-menu li > a {
     padding: 3px 20px;
 }
 ul.nav.main li.sitemap {
-    background: url(../img/nav-sp.gif) 100% 10px no-repeat;
+    background: url(../../img/admin/nav-sp.gif) 100% 10px no-repeat;
     padding: 0 15px 0 20px;
     margin-right: 27px;
 }
 ul.nav.main li.sitemap > a {
-    background: url(../img/sitemap.png) 0px 10px no-repeat;
+    background: url(../../img/admin/sitemap.png) 0px 10px no-repeat;
     display: block;
     height: 18px;
     padding: 11px 0;
@@ -330,7 +330,7 @@ span#top {
 }
 .left-sidenav .active .icon-chevron-right,
 .left-sidenav .active a:hover .icon-chevron-right {
-  background-image: url(../img/glyphicons-halflings-white.png);
+  background-image: url(../../img/admin/glyphicons-halflings-white.png);
   opacity: 1;
 }
 .left-sidenav.affix {
@@ -376,7 +376,7 @@ span#top {
     height: 16px;
     cursor: pointer;
     display: inline-block;
-    background: url(../../admin/img/chbx-bg.png) 0px 0px no-repeat;
+    background: url(../../img/admin/chbx-bg.png) 0px 0px no-repeat;
     position: relative;
     top: 1px;
     z-index: 15;

@@ -47,7 +47,7 @@ class Partner extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-            array('image', 'file', 'types'=>'jpg, gif, png', 'allowEmpty'=>true, 'maxSize' => 1048576),
+            array('image', 'file', 'types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'maxSize' => 1048576),
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('name, meta_title, meta_description, meta_keywords', 'length', 'max'=>255),
 			array('last_update_date, created_date', 'length', 'max'=>10),
@@ -184,7 +184,9 @@ class Partner extends ActiveRecord
         $partnersId = array();
         foreach($models as $model)
         {
+            /* @var $model Partner */
             $partnersId[] = $model->id;
+//            $model->logoImgBehavior->get
         }
         
         $criteria = new CDbCriteria;

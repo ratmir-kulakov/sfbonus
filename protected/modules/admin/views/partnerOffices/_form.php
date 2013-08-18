@@ -24,7 +24,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
         <?php echo $form->textFieldRow($model, 'phone', array('class'=>'span5','hint'=>'<strong>Примечание:</strong> Можно указать несколько телефонов. Например, (8722) 78-00-01, 65-01-01.')); ?>
     </div>
     <div class="control-group">
-        <label for="Partner_content">График работы</label>
+        <label for="Partner_content" class="required">График работы<span class="required">*</span></label>
         <div class="controls controls-row">
             <?php //you can use any desired dir to install this extension
             //TODO Исправить все ошибкив в elFinder
