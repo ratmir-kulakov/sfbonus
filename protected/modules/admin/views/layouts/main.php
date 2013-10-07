@@ -30,7 +30,7 @@
                                                 array('label'=>'Баннеры', 'url'=>'#'),
                                             ),
                                         ),
-                                        array('label'=>'Настройки', 'url'=>'#', 'visible'=>Yii::app()->user->checkAccess('administrator')),
+                                        array('label'=>'Настройки', 'url'=>array('/admin/config'), 'visible'=>Yii::app()->user->checkAccess('administrator')),
                                         array('label'=>'Пользователи', 'url'=>array('/admin/user'), 'visible'=>Yii::app()->user->checkAccess('administrator')),
                                     ),
                             ),
