@@ -1,0 +1,8 @@
+/*-----Common-----*/
+html, body { 
+    height:100%;  
+}
+
+.clear, .clear-left, .clear-right {
+    zoom: 1;
+}

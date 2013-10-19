@@ -1,7 +1,7 @@
 <?php
 /* @var $this ConfigController */
 /* @var $model ConfigForm */
-/* @var $form CActiveForm */
+/* @var $form TbActiveForm */
 ?>
 <?php $this->widget('bootstrap.widgets.TbAlert', array(
     'block'=>false, // display a larger alert block?

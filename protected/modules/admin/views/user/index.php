@@ -7,13 +7,13 @@ $this->pageTitle = $this->pageName . ' :: ' . Yii::app()->name;
 $this->breadcrumbs = array(
     'Пользователи',
 );
-$this->backLink = '/admin/';
+$this->backLink = Yii::app()->urlManager->createUrl('/admin/');
 $this->controlButtons = array(
     array(
         'icon' => 'icon icon-plus-sign icon-white',
         'label' => 'Добавить',
         'type' => 'success',
-        'url' => '/admin/user/create',
+        'url' => Yii::app()->urlManager->createUrl('/admin/user/create'),
     ),
     array(
         'buttonType' => 'ajaxLink',

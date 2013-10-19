@@ -4,11 +4,11 @@
 
 $this->pageName = 'Настройка сайта';
 
-$this->pageTitle = $this->pageName . ' :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: ' . Yii::app()->config->get('SITE.TITLE');
 $this->breadcrumbs = array(
     'Настройка сайта',
 );
-$this->backLink = '/admin/';
+$this->backLink = Yii::app()->urlManager->createUrl('/admin/');
 
 $this->controlButtons[] = array(
     'buttonType'=>'submit',

@@ -1,0 +1,10 @@
+/*-----Common-----*/
+
+/*-----Formula-----*/
+.formula li.buy {
+    width: 311px;    
+}
+.formula li.buy figcaption {
+    bottom: 14px;
+    width: 311px;    
+}

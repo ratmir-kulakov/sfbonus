@@ -26,11 +26,20 @@
                                         array('label'=>'', 'url'=>'#'),
                                         array('label'=>'Модули', 'url'=>'#', 'items'=>array(
                                                 array('label'=>'Страницы', 'url'=>array('/admin/page')),
+                                                array('label'=>'Новости', 'url'=>array('/admin/news')),
                                                 array('label'=>'Партнеры', 'url'=>array('/admin/partner')),
                                                 array('label'=>'Баннеры', 'url'=>'#'),
                                             ),
                                         ),
-                                        array('label'=>'Настройки', 'url'=>array('/admin/config'), 'visible'=>Yii::app()->user->checkAccess('administrator')),
+                                        array('label'=>'Блоки', 'url'=>array('/admin/blocks')),
+                                        array(
+                                            'label'=>'Настройки', 
+                                            'url'=>'#', 
+                                            'visible'=>Yii::app()->user->checkAccess('administrator'),
+                                            'items'=>array(
+                                                array('label'=>'Настройки сайта', 'url'=>array('/admin/config')),
+                                                array('label'=>'Дерево страниц сайта', 'url'=>array('/admin/tree')),
+                                            )),
                                         array('label'=>'Пользователи', 'url'=>array('/admin/user'), 'visible'=>Yii::app()->user->checkAccess('administrator')),
                                     ),
                             ),
@@ -39,7 +48,7 @@
                                 'htmlOptions'=>array('class'=>'user pull-right'),
                                 'items'=>array(
                                     array('label'=>Yii::app()->user->name, 'url'=>'#', 'items'=>array(
-                                        array('label'=>'Настройки', 'url'=>'/admin/user/update/id/'.Yii::app()->user->id),
+                                        array('label'=>'Настройки', 'url'=>array('/admin/user/update/', 'id'=>Yii::app()->user->id)),
                                         '---',
                                         array('label'=>'Выход', 'url'=>array('/admin/default/logout')),
                                     )),

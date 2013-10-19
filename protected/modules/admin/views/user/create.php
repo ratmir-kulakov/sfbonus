@@ -7,11 +7,11 @@ $this->pageName = 'Создание пользователя';
 $this->pageTitle = $this->pageName . ' :: Пользователи :: ' . Yii::app()->name;
 
 $this->breadcrumbs = array(
-    'Пользователи'=>'/admin/user',
+    'Пользователи'=>array('/admin/user'),
     'Создание пользователя',
 );
 
-$this->backLink = '/admin/user';
+$this->backLink = Yii::app()->urlManager->createUrl('/admin/user');
 
 $this->controlButtons[] = array(
     'buttonType'=>'submit',

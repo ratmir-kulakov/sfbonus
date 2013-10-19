@@ -169,9 +169,6 @@ class PartnerController extends Controller
         
 		if(isset($_GET['Partner']))
         {
-            echo '<pre>';
-            print_r($_GET['Partner']);
-            echo '</pre>';
 			$model->attributes = $_GET['Partner'];
         }
         

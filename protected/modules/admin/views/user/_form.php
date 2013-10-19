@@ -62,6 +62,7 @@
     </div>
     <?php endif;?>
 </section>	
+<hr />
 <?php if(Yii::app()->user->checkAccess('administrator')):?>
 <section class="page-part" id="settings">
     <h1>Настройка</h1>
@@ -72,6 +73,7 @@
         <?php echo $form->dropDownListRow($model,'status', $model->statusOptions, array('class'=>'span3','hint'=>'<strong>Примечание:</strong> Только пользователи со статусом "Активен" могут авторизоваться в Административной панели и управлять сайтом.')); ?>
     </div>
 </section>	
+<hr />
 <?php endif;?>
 <section class="page-part" id="fio">
     <h1>ФИО</h1>

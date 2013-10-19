@@ -4,14 +4,14 @@
 
 $this->pageName = 'Создание страницы';
 
-$this->pageTitle = $this->pageName . ' :: Страницы :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: Страницы :: ' . Yii::app()->config->get('SITE.TITLE');
 
 $this->breadcrumbs = array(
-    'Страницы'=>'/admin/page',
+    'Страницы'=>array('/admin/page'),
     'Создание страницы',
 );
 
-$this->backLink = '/admin/page';
+$this->backLink = Yii::app()->urlManager->createUrl('/admin/page');
 
 $this->controlButtons[] = array(
     'buttonType'=>'submit',
@@ -82,7 +82,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'type'=>'list',
             'itemTemplate'=>'{menu}',
             'items'=>$this->menu,
-            'htmlOptions'=>array('class'=>'left-sidenav', 'id'=>'local-nav'),
+            'id'=>'local-nav',
+            'htmlOptions'=>array('class'=>'left-sidenav'),
         ));
     ?>
 </div>

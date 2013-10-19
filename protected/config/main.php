@@ -25,9 +25,11 @@ return array(
 		'application.components.*',
         'application.helpers.*',
 		'application.models.*',
+        'application.extensions.tinymce.*',
+        'application.extensions.elFinder.*',
 	),
 
-    'theme'=>'bootstrap',
+    'theme'=>'sfbonus',
     
 	'modules'=>array(
 		'gii'=>array(
@@ -55,6 +57,9 @@ return array(
             'class'=>'PhpAuthManager',
             'defaultRoles' => array('guest'),
         ),
+		'cache'=>array(
+			'class'=>'CFileCache',
+		),
         'clientScript'=>array(
             'coreScriptPosition' => CClientScript::POS_END,
         ),
@@ -107,9 +112,15 @@ return array(
             'urlSuffix'=>'.html',
             'showScriptName'=>false,
 			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                'news'=>'news/index',
+                '<module:\w+>'=>'<module>/default/index',
+				'<module:\w+>/<controller:\w+>'=>'<module>/<controller>/index',
+				'<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/<controller>/<action>',
+				'<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
+                '<alias:[\w_\/-]+>'=>'site/page',
+//				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+//				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+//				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
 		'user'=>array(
@@ -124,5 +135,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'admin@sfbonus.loc',
+        'uploadDir'=>DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPARATOR,
+        'uploadDirURL'=>'/upload/',
 	),
 );

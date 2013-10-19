@@ -82,6 +82,16 @@ class Bootstrap extends CApplicationComponent
 		$this->registerResponsiveCss();
 		$this->registerYiiCss();
 	}
+    
+	/**
+	 * Registers a specific css in the asset's css folder
+	 * @param string $cssFile the css file name to register
+	 * @param string $media the media that the CSS file should be applied to. If empty, it means all media types.
+	 */
+	public function registerAssetCss($cssFile, $media = '')
+	{
+		Yii::app()->getClientScript()->registerCssFile($this->getAssetsUrl() . "/css/{$cssFile}", $media);
+	}
 
 	/**
 	 * Registers the core JavaScript.
@@ -104,6 +114,17 @@ class Bootstrap extends CApplicationComponent
 		$cs->registerCoreScript('jquery');
 		$filename = YII_DEBUG ? 'bootstrap.js' : 'bootstrap.min.js';
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/'.$filename, $position);
+	}
+
+	/**
+	 * Register a specific js file in the asset's js folder
+	 * @param string $jsFile
+	 * @param int $position the position of the JavaScript code.
+	 * @see CClientScript::registerScriptFile
+	 */
+	public function registerAssetJs($jsFile, $position = CClientScript::POS_END)
+	{
+		Yii::app()->getClientScript()->registerScriptFile($this->getAssetsUrl() . "/js/{$jsFile}", $position);
 	}
 
 	/**

@@ -4,20 +4,20 @@
 
 $this->pageName = 'Редактирование';
 
-$this->pageTitle = $this->pageName . ' :: Партнеры :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: Партнеры :: ' . Yii::app()->config->get('SITE.TITLE');
 
 $this->breadcrumbs = array(
-    'Партнеры'=>'/admin/partner',
+    'Партнеры'=>array('/admin/partner'),
     'Редактирование',
 );
 
 
-$this->backLink = '/admin/partner';
+$this->backLink = Yii::app()->urlManager->createUrl('/admin/partner');
 $this->controlButtons[] = array(
     'icon' => 'icon icon-plus-sign icon-white',
     'label' => 'Добавить',
     'type' => 'success',
-    'url' => '/admin/partner/create',
+    'url' => Yii::app()->urlManager->createUrl('/admin/partner/create'),
 );
 
 $this->controlButtons[] = array(

@@ -95,6 +95,7 @@
     </div>
     <p>&nbsp;</p>
 </section>	
+<hr />
 <?php if(! $model->isNewRecord):?>
 <section class="page-part" id="address">
     <h1 class="pull-left">Адреса и время работы</h1>
@@ -199,6 +200,7 @@
     ?>
     <p>&nbsp;</p>
 </section>
+<hr />
 <?php endif;?>
 <section class="page-part" id="settings">
     <h1>Настройка</h1>
@@ -220,6 +222,7 @@
     </div>
     <?php endif;?>
 </section>	
+<hr />
 <section class="page-part" id="seo">
     <h1>SEO</h1>
     <div class="control-group">

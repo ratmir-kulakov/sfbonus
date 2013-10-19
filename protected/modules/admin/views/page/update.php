@@ -4,22 +4,22 @@
 
 $this->pageName = 'Редактирование';
 
-$this->pageTitle = $this->pageName . ' :: Страницы :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: Страницы :: ' . Yii::app()->config->get('SITE.TITLE');
 
 $this->breadcrumbs = array(
-    'Страницы'=>'/admin/page',
+    'Страницы'=>array('/admin/page'),
     'Редактирование',
 );
 
 
 if(Yii::app()->user->checkAccess('administrator'))
 {
-    $this->backLink = '/admin/page';
+    $this->backLink = Yii::app()->urlManager->createUrl('/admin/page');
     $this->controlButtons[] = array(
         'icon' => 'icon icon-plus-sign icon-white',
         'label' => 'Добавить',
         'type' => 'success',
-        'url' => '/admin/page/create',
+        'url' => Yii::app()->urlManager->createUrl('/admin/page/create'),
     );
 }
 
@@ -108,7 +108,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'type'=>'list',
             'itemTemplate'=>'{menu}',
             'items'=>$this->menu,
-            'htmlOptions'=>array('class'=>'left-sidenav', 'id'=>'local-nav'),
+            'id'=>'local-nav',
+            'htmlOptions'=>array('class'=>'left-sidenav'),
         ));
     ?>
 </div>

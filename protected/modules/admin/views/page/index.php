@@ -2,17 +2,17 @@
 /* @var $this PageController */
 
 $this->pageName = 'Страницы';
-$this->pageTitle = $this->pageName . ' :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: ' . Yii::app()->config->get('SITE.TITLE');
 $this->breadcrumbs = array(
     'Страницы',
 );
-$this->backLink = '/admin/';
+$this->backLink = Yii::app()->urlManager->createUrl('/admin/');
 $this->controlButtons = array(
     array(
         'icon' => 'icon icon-plus-sign icon-white',
         'label' => 'Добавить',
         'type' => 'success',
-        'url' => '/admin/page/create',
+        'url' => Yii::app()->urlManager->createUrl('/admin/page/create'),
     ),
     array(
         'buttonType' => 'ajaxLink',

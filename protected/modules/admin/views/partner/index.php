@@ -2,17 +2,17 @@
 /* @var $this PartnerController */
 
 $this->pageName = 'Партнеры';
-$this->pageTitle = $this->pageName . ' :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: ' . Yii::app()->config->get('SITE.TITLE');
 $this->breadcrumbs = array(
     'Партнеры',
 );
-$this->backLink = '/admin/';
+$this->backLink = Yii::app()->urlManager->createUrl('/admin/');
 $this->controlButtons = array(
     array(
         'icon' => 'icon icon-plus-sign icon-white',
         'label' => 'Добавить',
         'type' => 'success',
-        'url' => '/admin/partner/create',
+        'url' => Yii::app()->urlManager->createUrl('/admin/partner/create'),
     ),
     array(
         'buttonType' => 'ajaxLink',

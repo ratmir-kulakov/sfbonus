@@ -4,7 +4,7 @@
 
 $this->pageName = 'Редактирование адреса';
 
-$this->pageTitle = $this->pageName . ' :: Партнеры :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: Партнеры :: ' . Yii::app()->config->get('SITE.TITLE');
 
 $this->breadcrumbs = array(
     'Партнеры'=>Yii::app()->createUrl('/admin/partner/update', array('id'=>$model->partner_id)),

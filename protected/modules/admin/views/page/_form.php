@@ -25,21 +25,33 @@
     <div class="control-group">
         <label for="Page_content">Текст</label>
         <div class="controls controls-row">
-            <?php //you can use any desired dir to install this extension
-            //TODO Исправить все ошибкив в elFinder
-            $this->widget('application.extensions.ckeditor.CKEditor', array(
-                'model'=>$model,
-                'attribute'=>'content',
-                'language'=>'ru',
-                'editorTemplate'=>'advanced',
-                'options'=>array(
-                    'filebrowserBrowseUrl' => CHtml::normalizeUrl(array('page/fileUploader')),
+            <?php
+            
+            $this->widget('ext.tinymce.TinyMce', array(
+                'model' => $model,
+                'attribute' => 'content',
+                'compressorRoute' => 'admin/tinyMce/compressor',
+                'spellcheckerUrl' => array('tinyMce/spellchecker'),
+                'settings' => array(
+                    'theme_advanced_buttons1' => "code,|,cut,copy,paste,pastetext,pasteword,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontsizeselect",
+                    'theme_advanced_buttons2' => "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,|,forecolor,backcolor,|,ltr,rtl",
+                    'theme_advanced_buttons3' => "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,iespell,media,advhr",
+                    'theme_advanced_buttons4' => "styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,|,fullscreen,spellchecker,|,help",
+                    'width' => '97%',
+                ),
+                'fileManager' => array(
+                    'class' => 'ext.elFinder.TinyMceElFinder',
+                    'connectorRoute'=>'admin/elfinder/connector',
+                ),
+                'htmlOptions' => array(
+                    'rows' => 6,
                 ),
             ));
             ?>
         </div>
     </div>
-</section>	
+</section>
+<hr />	
 <section class="page-part" id="settings">
     <h1>Настройка</h1>
     <div class="control-group">
@@ -60,6 +72,7 @@
     </div>
     <?php endif;?>
 </section>	
+<hr />
 <section class="page-part" id="seo">
     <h1>SEO</h1>
     <div class="control-group">

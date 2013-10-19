@@ -7,19 +7,19 @@ $this->pageName = 'Редактирование';
 $this->pageTitle = $this->pageName . ' :: Пользователи :: ' . Yii::app()->name;
 
 $this->breadcrumbs = array(
-    'Пользователи'=>'/admin/user',
+    'Пользователи'=>array('/admin/user'),
     'Редактирование',
 );
 
 
 if(Yii::app()->user->checkAccess('administrator'))
 {
-    $this->backLink = '/admin/user';
+    $this->backLink = Yii::app()->urlManager->createUrl('/admin/user');
     $this->controlButtons[] = array(
         'icon' => 'icon icon-plus-sign icon-white',
         'label' => 'Добавить',
         'type' => 'success',
-        'url' => '/admin/user/create',
+        'url' => Yii::app()->urlManager->createUrl('/admin/user/create'),
     );
 }
 

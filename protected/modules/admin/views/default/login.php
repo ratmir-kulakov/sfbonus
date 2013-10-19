@@ -3,7 +3,7 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle = 'Авторизация :: ' . Yii::app()->name;
+$this->pageTitle = 'Авторизация :: ' . Yii::app()->config->get('SITE.TITLE');
 ?>
 <div class="login-form">
     <?php $this->widget('bootstrap.widgets.TbAlert', array(

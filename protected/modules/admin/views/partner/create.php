@@ -4,14 +4,14 @@
 
 $this->pageName = 'Создание партнера';
 
-$this->pageTitle = $this->pageName . ' :: Партнеры :: ' . Yii::app()->name;
+$this->pageTitle = $this->pageName . ' :: Партнеры :: ' . Yii::app()->config->get('SITE.TITLE');
 
 $this->breadcrumbs = array(
-    'Партнеры'=>'/admin/partner',
+    'Партнеры'=>array('/admin/partner'),
     'Создание партнера',
 );
 
-$this->backLink = '/admin/partner';
+$this->backLink = Yii::app()->urlManager->createUrl('/admin/partner');
 
 $this->controlButtons[] = array(
     'buttonType'=>'submit',
@@ -82,7 +82,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
             'type'=>'list',
             'itemTemplate'=>'{menu}',
             'items'=>$this->menu,
-            'htmlOptions'=>array('class'=>'left-sidenav', 'id'=>'local-nav'),
+            'id'=>'local-nav',
+            'htmlOptions'=>array('class'=>'left-sidenav'),
         ));
     ?>
 </div>
