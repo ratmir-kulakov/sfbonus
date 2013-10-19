@@ -1,0 +1,13 @@
+ul.partners-list li .tabs .tabs-title li {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee',endColorstr='#dbdbdb',GradientType=0);
+    zoom: 1;
+}
+ul.partners-list li .tabs .tabs-title li.ui-state-active {
+    filter: none;
+}
+ul.partners-list li .tabs .tabs-title li:first-child {
+    border-radius: 4px 0 0 0;
+}
+ul.partners-list li .tabs .tabs-title li:last-child {
+    border-radius: 0 4px 0 0;
+}

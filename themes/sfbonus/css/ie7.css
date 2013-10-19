@@ -1,0 +1,57 @@
+/*-----Common-----*/
+.clear, .clear-left, .clear-right {
+    zoom: 1;
+}
+
+/*to enable resizing for IE*/
+input,textarea,select{ font-size:100%; }
+
+html, body { 
+    height:100%;  
+}
+
+.inl-blck li, .section-list .subsection, button.inl-blck, div.inl-blck, span.inl-blck { 
+    display: inline; 
+    zoom: 1; 
+}
+
+#global-wrapper {
+    background-position: center 38px;
+}
+
+#content-wrapper {
+    /*padding: 0 10px 0 24px;*/   
+}
+
+.control-group button {
+    background: #ededed;
+}
+
+nav.main ul li a {
+    padding: 6px 17px 9px;
+}
+
+/*-----Main-----*/
+.catalog h1, .catalog a.all-catalog {
+    display: inline;
+    vertical-align: middle;
+}
+
+ul.products-list {
+    margin-left: -12px; 
+    letter-spacing: normal;
+}
+
+.internal-page ul.list, .internal-page ol.list {
+    padding: 0 0 0 20px;
+}
+.internal-page ul.list li, .internal-page ol.list li {
+    padding: 0 0 8px;
+}
+.internal-page ul.list li ul, .internal-page ol.list li ol {
+    padding: 5px 0 0 27px;
+}
+
+.internal-page ol.digital li {
+    list-style: decimal;
+}

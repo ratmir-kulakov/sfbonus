@@ -1,0 +1,148 @@
+<?php
+/* @var $this PartnerController */
+
+$this->pageName = 'Партнеры';
+$this->pageTitle = $this->pageName . ' :: ' . Yii::app()->config->get('SITE.TITLE');
+$this->breadcrumbs = array(
+    'Партнеры',
+);
+$this->backLink = Yii::app()->urlManager->createUrl('/admin/');
+$this->controlButtons = array(
+    array(
+        'icon' => 'icon icon-plus-sign icon-white',
+        'label' => 'Добавить',
+        'type' => 'success',
+        'url' => Yii::app()->urlManager->createUrl('/admin/partner/create'),
+    ),
+    array(
+        'buttonType' => 'ajaxLink',
+        'icon' => 'trash white',
+        'label' => 'Удалить',
+        'type' => 'danger',
+        'url' => array('deletescope', 'ajax'=>'1'),
+        'ajaxOptions' => array(
+            'type'=>'POST',
+            'beforeSend'=>'function(){
+                if($.fn.yiiGridView.getChecked("partner-grid-view-id","partnerids").length == 0)
+                {
+                    alert("Ошибка! Необходимо выбрать хотя бы одного партнера");
+                    return false;
+                }
+                if(! confirm("Вы уверены, что хотите удалить информацию о выбранных партнерах?"))
+                {
+                    return false;
+                }
+                $("#partner-grid-view-id").addClass("grid-view-loading");
+            }',
+            'data'=>'js:{Ids : $.fn.yiiGridView.getChecked("partner-grid-view-id","partnerids").toString(), YII_CSRF_TOKEN : "'.Yii::app()->request->csrfToken.'"}', //ids of checked rows are converted to a string
+            'success'=>'function(data){
+                $.fn.yiiGridView.update("partner-grid-view-id", {url:""});
+            }',
+            'error'=>'function(jqXHR, textStatus){
+                
+            }',
+        ),
+        'htmlOptions' => array(
+        ),
+    ),
+);
+$dateisOn = 'с ' . $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                        // 'model'=>$model,
+                                    'name' => 'Partner[date_first]',
+                                    'language' => 'ru',
+                                    'value' => $model->date_first,
+                                    // additional javascript options for the date picker plugin
+                                    'options'=>array(
+                                        'showAnim'=>'fold',
+                                        'dateFormat'=>'dd.mm.yy',
+                                        'changeMonth' => 'true',
+                                        'changeYear'=>'true',
+                                        'constrainInput' => 'false',
+                                    ),
+                                    'htmlOptions'=>array(
+                                        'style'=>'width:70px;',
+                                    ),
+// DONT FORGET TO ADD TRUE this will create the datepicker return as string
+                                ),true) . 
+            ' по ' . 
+            $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                        // 'model'=>$model,
+                                    'name' => 'Partner[date_last]',
+                                    'language' => 'ru',
+                                    'value' => $model->date_last,
+                                    // additional javascript options for the date picker plugin
+                                    'options'=>array(
+                                        'showAnim'=>'fold',
+                                        'dateFormat'=>'dd.mm.yy',
+                                        'changeMonth' => 'true',
+                                        'changeYear'=>'true',
+                                        'constrainInput' => 'false',
+                                    ),
+                                    'htmlOptions'=>array(
+                                        'style'=>'width:70px',
+                                    ),
+// DONT FORGET TO ADD TRUE this will create the datepicker return as string
+                                ),true);
+
+$this->widget('bootstrap.widgets.TbAlert', array(
+    'block'=>false, // display a larger alert block?
+    'fade'=>true, // use transitions?
+    'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
+    'alerts'=>array( // configurations per alert type
+        'success'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), // success, info, warning, error or danger
+        'error'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), 
+    ),
+    'htmlOptions'=>array(
+        'class'=>'alerts-box',
+    ),
+));
+
+$this->widget('bootstrap.widgets.TbGridView', array(
+    'id'=>'partner-grid-view-id',
+	'filter'=>$model,
+	'type'=>'striped bordered condensed',
+	'dataProvider' => $model->search(),
+	'template' => "{items}",  
+    //to update the table after ajax datePicker was available
+    'afterAjaxUpdate'=>"function() { 
+        jQuery('#Partner_date_first, #Partner_date_last').datepicker(jQuery.extend(
+                jQuery.datepicker.regional['ru'],{
+                'showAnim':'fold',
+                'dateFormat':'dd.mm.yy',
+                'changeMonth':'true',
+                'showButtonPanel':'true',
+                'changeYear':'true'
+            }
+        )); 
+    }", 
+	'columns' => array(
+        array(
+            'class'=>'CCheckBoxColumn', 
+            'selectableRows' => 2,
+            'id'=>'partnerids',
+            'checkBoxHtmlOptions' => array(
+                'name' => 'partnerids[]',
+            ),
+            'value'=>'$data->id',
+        ),
+		'name',
+		array(
+            'name'=>'last_update_date',
+            'type' => 'raw',
+            'value'=>'($data->last_update_date)? Yii::app()->dateFormatter->formatDateTime($data->last_update_date, "medium", "short"): "---"',
+            'filter'=>$dateisOn, 
+            'htmlOptions'=>array('style'=>'width: 220px'),
+        ),
+		array(
+            'name'=>'status',
+            'type' => 'raw',
+            'value'=>'$data->getStatusName($data->status)',
+            'filter' => CHtml::activeDropDownList($model, 'status', $model->statusOptions, array('empty'=>'---')),
+            'htmlOptions'=>array('style'=>'width: 140px'),
+        ),
+		array(
+			'class'=>'bootstrap.widgets.TbButtonColumn',
+            'template'=>'{update} {delete}',
+		),
+	),
+));

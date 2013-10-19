@@ -3,6 +3,8 @@
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
+
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
@@ -13,37 +15,57 @@ return array(
 	'name'=>'My Web Application',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array(
+        'config',
+        'log',
+    ),
 
 	// autoloading model and component classes
 	'import'=>array(
-		'application.models.*',
 		'application.components.*',
+        'application.helpers.*',
+		'application.models.*',
+        'application.extensions.tinymce.*',
+        'application.extensions.elFinder.*',
 	),
 
+    'theme'=>'sfbonus',
+    
 	'modules'=>array(
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'123',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
+            'generatorPaths'=>array(
+                'bootstrap.gii',
+            ),
 		),
+        'admin' => array(
+            'preload'=>array('bootstrap'),
+            'components'=>array(
+                'bootstrap'=>array(
+                    'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
+                ),
+            ),
+        ),
 	),
 
 	// application components
 	'components'=>array(
-		'user'=>array(
-			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+        'authManager'=>array(
+            'class'=>'PhpAuthManager',
+            'defaultRoles' => array('guest'),
+        ),
+		'cache'=>array(
+			'class'=>'CFileCache',
 		),
-		'urlManager'=>array(
-			'urlFormat'=>'path',
-			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-			),
-		),
+        'clientScript'=>array(
+            'coreScriptPosition' => CClientScript::POS_END,
+        ),
+        'config'=>array(
+            'class'=>'application.components.CConfig',
+        ),
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=sfbonus_db',
 			'emulatePrepare' => true,
@@ -56,6 +78,12 @@ return array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
 		),
+        'file'=>array(
+            'class'=>'application.extensions.file.CFile',
+        ),
+        'html' => array(
+            'class' => 'Html',
+        ),
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
@@ -71,6 +99,35 @@ return array(
 				*/
 			),
 		),
+        'request'=>array(
+            'class' => 'application.components.HttpRequest',
+            'enableCsrfValidation'=>true,
+            'enableCookieValidation'=>true,
+        ),
+        'session'=>array(
+            'timeout' => 1440,
+        ),
+		'urlManager'=>array(
+			'urlFormat'=>'path',
+            'urlSuffix'=>'.html',
+            'showScriptName'=>false,
+			'rules'=>array(
+                'news'=>'news/index',
+                '<module:\w+>'=>'<module>/default/index',
+				'<module:\w+>/<controller:\w+>'=>'<module>/<controller>/index',
+				'<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/<controller>/<action>',
+				'<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
+                '<alias:[\w_\/-]+>'=>'site/page',
+//				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+//				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+//				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+			),
+		),
+		'user'=>array(
+            'class' => 'WebUser',
+			// enable cookie-based authentication
+			'allowAutoLogin'=>false,
+		),
 	),
 
 	// application-level parameters that can be accessed
@@ -78,5 +135,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'admin@sfbonus.loc',
+        'uploadDir'=>DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPARATOR,
+        'uploadDirURL'=>'/upload/',
 	),
 );

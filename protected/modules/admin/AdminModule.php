@@ -1,0 +1,41 @@
+<?php
+
+class AdminModule extends CWebModule
+{
+    public function init()
+	{
+		// this method is called when the module is being created
+		// you may place code here to customize the module or the application
+
+		// import the module-level models and components
+		$this->setImport(array(
+			'admin.models.*',
+			'admin.components.*',
+		));
+        
+	}
+
+	public function beforeControllerAction($controller, $action)
+	{
+		if(parent::beforeControllerAction($controller, $action))
+		{
+            $module = ( Yii::app()->controller->module ? Yii::app()->controller->module : Yii::app() );
+
+            $module->bootstrap->registerAllCss();
+            $module->bootstrap->register();
+			// this method is called before any module controller action is performed
+			// you may place customized code here
+            Yii::app()->widgetFactory->widgets['TbBreadcrumbs'] = array('homeLink'=>CHtml::link('Главная', array('/admin')));
+            
+            if ($action->id != 'login' && Yii::app()->user->isGuest) 
+            {
+                    $controller->redirect('/admin/default/login');
+            }
+            Yii::app()->layout = 'admin';
+            
+			return true;
+		}
+		else
+			return false;
+	}
+}
